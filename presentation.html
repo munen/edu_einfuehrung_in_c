@@ -229,11 +229,87 @@ Selbes Ergebnis, aber bedeutend weniger Code.
         printf("%3d %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
     }
 
-* Keine 'magic numbers'
+* Besserer Code: Keine 'magic numbers'
 * Präprozessor
  * ersetzt Text
 * Konstanten != Variable
  * Keine Deklaration
+
+
+
+-----------------------------------------------------
+<!-- Page 13 -->
+# Ein- und Ausgabe(1)
+
+    #include <stdio.h>
+    /* count characters in input; 1st version */ 
+    
+    int main() {
+      long nc;
+      nc = 0; 
+      while (getchar() != EOF)
+        nc++;
+      printf("%ld\n", nc);
+    }
+character\_counting_1.c
+
+ * getchar()
+ * ++ Operator
+  * gleichbedeutend zu nc = nc + 1
+  * Präfix und Postfix, ebenso --
+ * EOF
+ 
+-----------------------------------------------------
+<!-- Page 14 -->
+# Ein- und Ausgabe(2)
+# Alternative Implementierung
+
+    #include <stdio.h>
+
+    /* count characters in input; 2nd version */ 
+    int main() {
+      double nc;
+      for (nc = 0; getchar() != EOF; ++nc)
+        ;
+      printf("%.0f\n", nc);
+    }
+character\_counting\_2.c
+
+Besondere Variante der for-Schleife
+
+ * Kein Code im Rumpf der Schleife
+ * Das Semikolon in der Zeile steht für die minimale Anforderung an Rumpf 
+   * 'null' Statement
+ 
+-----------------------------------------------------
+<!-- Page 15 -->
+# Ein- und Ausgabe(3)
+
+    #include <stdio.h>
+    
+    /* count lines in input */ 
+    int main() {
+      int c, nl;
+    
+      nl = 0; 
+      while ((c = getchar()) != EOF)
+        if (c == '\n') 
+          nl++;
+      printf("%d\n", nl);
+    }
+line\_counting.c
+
+* == (Equality Operator)
+ * Achtung: = ungleich ==
+* Einfache Anführungszeichen ('') bedeuten 'character constants'
+ * '\n' (Escape sequence)
+
+
+-----------------------------------------------------
+<!-- Page 16 -->
+# Arrays
+
+
 
 
 -->
