@@ -61,18 +61,180 @@
   * Fördert Verständnis
 * Implementierung anderer Sprachen
  * CRuby, CPyton, PHP, .NET (C/C++), JS V8 (C++), Sun JVM (C++)
+* Unix == C
 * Neu: Google Chrome Native Client ([NaCl](http://code.google.com/p/nativeclient/))
 
 -----------------------------------------------------
-<!-- Page 4 -->
+<!-- Page 5 -->
 # Hallo Welt
-<pre class="sh_cpp">
-#include <stdio.h>
-int main(void) {
-  printf("Hallo HSZ-T");
-  return 0;
-}
+    #include <stdio.h>
+    int main() {
+      printf("Hallo HSZ-T\n");
+    }
+
+-----------------------------------------------------
+<!-- Page 6 -->
+# Hands on!
+# System bereit?
+ * Compiler
+ * Editor
+
+-----------------------------------------------------
+<!-- Page 7 -->
+# Grad Fahrenheit in Celius (1)
+
+# Erste Lernziele
+ * Variable
+   * Deklaration / Initialisierung
+ * Schleife
+ * Bedingung
+
+# Algorithmus zur Umrechnung
+
+( TFahrenheit - 32 ) × 5 / 9
+
+
+-----------------------------------------------------
+<!-- Page 8 -->
+# Grad Fahrenheit in Celius (2)
+
+    #include <stdio.h>
+
+    /* print Fahrenheit-Celsius table for fahr = 0, 20, ..., 300 */
+    int main() {
+      int fahr, celsius;
+      int lower, upper, step;
+
+      lower = 0; /* lower limit of temperature scale */ 
+      upper = 300; /* upper limit */ 
+      step = 20; /* step size */
+      
+      fahr = lower; 
+      while (fahr <= upper) {
+        celsius = 5 * (fahr-32) / 9; 
+        printf("%d\t%d\n", fahr, celsius); 
+        fahr = fahr + step;
+      }
+    }
+fahrenheit2celsius.c
+
+-----------------------------------------------------
+<!-- Page 9 -->
+# Exkurs Datentypen
+<table border="3">
+ <tr>
+   <td>
+    char
+   </td>
+   <td>
+    ein Byte<br>
+    (-128 / 128)
+   </td>
+ </tr>
+ <tr>
+   <td>
+    short
+   </td>
+   <td>
+    short Integer<br>
+    (-32,768 / 32,767)
+   </td>
+ </tr>
+ <tr>
+   <td>
+    int
+   </td>
+   <td>
+    Integer<br>
+   (−2,147,483,648 / 2,147,483,647)
+   </td>
+ </tr>
+ <tr>
+   <td>
+    long
+   </td>
+   <td>
+    long Integer<br>
+    32bit: (−2,147,483,648 / 2,147,483,647)<br>
+    64bit: (−9,223,372,036,854,775,808 / 9,223,372,036,854,775,807)
+   </td>
+ </tr>
+ <tr>
+   <td>
+    float
+   </td>
+   <td>
+    floating point<br>
+    (≤1E−37 / ≥1E+37))
+   </td>
+ </tr>
+</table>
+
+* Grösse der Datentypen ist abhängig von der Platform
+ * limits.h
+
+-----------------------------------------------------
+<!-- Page 10 -->
+# Zurück zu Fahrenheit2Celsius
+
+* Bisher Berechnung auf Ganzzahlen (Integer)
+* Änderung der Berechnung auf Gleitkomma (Float)
+ * Deklaration (int -> float)
+ * Berechnung und Genauigkeit
+
+<pre>
+    celsius = (5.0/9.0) * (fahrenheit-32.0); 
+    printf("%3.0f %6.1f\n", fahrenheit, celsius);
 </pre>
+fahrenheit2celsius\_float.c
+
+
+
+-----------------------------------------------------
+<!-- Page 11 -->
+# For Schleifen
+
+    #include <stdio.h>
+    /* print Fahrenheit-Celsius table */
+
+    int main() {
+      int fahr;
+      for (fahr = 0; fahr <= 300; fahr = fahr + 20)
+        printf("%3d %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
+    }
+fahrenheit2celsius\_for\_loop.c
+
+
+Selbes Ergebnis, aber bedeutend weniger Code.
+
+ * Weniger Variable
+ * Berechnung jetzt inline in prinft
+
+
+
+-----------------------------------------------------
+<!-- Page 12 -->
+# Konstanten
+
+    #include <stdio.h>
+    
+    #define LOWER 0
+    #define UPPER 300
+    #define STEP 20
+    
+    /* print Fahrenheit-Celsius table */ 
+    int main() {
+      int fahr;
+      for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP) 
+        printf("%3d %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
+    }
+
+* Keine 'magic numbers'
+* Präprozessor
+ * ersetzt Text
+* Konstanten != Variable
+ * Keine Deklaration
+
 
 -->
 </script>
