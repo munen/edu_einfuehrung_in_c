@@ -22,13 +22,21 @@
 
 -----------------------------------------------------
 <!-- Page 1 -->
-# Alain M. Lafon
+# Informationen
 
 ### Berufserfahrung
 
 * 1 Jahr Campus Ambassador - Sun Microsystems
 * 3 Jahre Python, Ruby, (C#) - Swiss Post Solutions AG
 * 1 Jahr Ruby on Rails - Panter LLC
+
+### Allgemein
+
+* Alain M. Lafon
+* E-Mail: aml@panter.ch
+* Folien und Code
+ * http://edu.panter.ch/OsEinfuehrungSystemProgrammierung
+* Literatur: Kernighan & Ritchie - The C Programming language
 
 -----------------------------------------------------
 <!-- Page 2 -->
@@ -307,7 +315,44 @@ line\_counting.c
 
 -----------------------------------------------------
 <!-- Page 16 -->
-# Arrays
+# Arrays(1)
+# Häufigkeitszählung von Ziffern(1)
+
+    #include <stdio.h>
+    
+    // count digits
+    int main() {
+      int i, c;
+      int ndigit[10];
+      
+      // Initializing array to count of zero
+      for (i = 0; i < 10; ++i)
+        ndigit[i] = 0;
+    
+      // Actual count
+      while ((c = getchar()) != EOF)
+        if (c >= '0' && c <= '9')
+          ++ndigit[c-'0'];
+    
+      // Print result
+      printf("Digits = ");
+      for (i = 0; i < 10; ++i)
+        printf(" %d", ndigit[i]);
+    }
+
+
+-----------------------------------------------------
+<!-- Page 17 -->
+# Arrays(2)
+# Häufigkeitszählung von Ziffern(2)
+
+ * Arrays beginnen in C mit dem Index 0
+  * Indexierung: ndigit[0]
+ * Trick bei der Indexierung von ++ndigit[c-'0']
+  * Datentyp char ist nur ein kleiner Integer
+  * getchar() liefert [ASCII-Wert](http://en.wikipedia.org/wiki/ASCII) des Characters (48 fuer '0')
+  * int und char sind arithmetisch vergleichbar
+  * c-'0' gibt in unserem Fall immer einen Wert zw. 0..9
 
 
 
