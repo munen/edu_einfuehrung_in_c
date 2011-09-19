@@ -16,12 +16,10 @@
 <script type=text/markdown>
 <!--
 
-<!-- Page 0 -->
 
 # Einführung in die Programmierung in C
 
 -----------------------------------------------------
-<!-- Page 1 -->
 # Informationen
 
 ### Berufserfahrung
@@ -38,8 +36,17 @@
  * http://edu.panter.ch/OsEinfuehrungSystemProgrammierung
 * Literatur: Kernighan & Ritchie - The C Programming language
 
+### Besprechung Ablauf
+
+
 -----------------------------------------------------
-<!-- Page 2 -->
+# Historische Einbettung
+
+ * Entwickelt zw. 1969 und 1973 von Dennis Ritchie @ Bell Labs
+ * K&R C - erste Auflage 1978, zweite Auflage 1988
+ * Wurde entwickelt, um Unix portabel zu machen (PDP-7)
+
+-----------------------------------------------------
 # Es ist 2011, warum noch C? (1)
 
 * Populäre Sprachen:
@@ -51,7 +58,6 @@
  * Javascript
 
 -----------------------------------------------------
-<!-- Page 3 -->
 # Es ist 2011, warum noch C? (2)
 
 * Geschwindigkeit ([Alioth Shootout](http://shootout.alioth.debian.org/u32/which-programming-languages-are-fastest.php?gcc=on&java=on&csharp=on&v8=on&yarv=on&php=on&python3=on&calc=chart))
@@ -59,7 +65,6 @@
  ![](images/alioth-shootout.png)
 
 -----------------------------------------------------
-<!-- Page 4 -->
 # Es ist 2011, warum noch C? (3)
 
 * Nähe zur Hardware
@@ -71,9 +76,9 @@
  * CRuby, CPyton, PHP, .NET (C/C++), JS V8 (C++), Sun JVM (C++)
 * Unix == C
 * Neu: Google Chrome Native Client ([NaCl](http://code.google.com/p/nativeclient/))
+* Grundlage für C++, ObjC, (Java..)
 
 -----------------------------------------------------
-<!-- Page 5 -->
 # Hallo Welt
     #include <stdio.h>
     int main() {
@@ -81,14 +86,12 @@
     }
 
 -----------------------------------------------------
-<!-- Page 6 -->
 # Hands on!
 # System bereit?
  * Compiler
  * Editor
 
 -----------------------------------------------------
-<!-- Page 7 -->
 # Grad Fahrenheit in Celius (1)
 
 # Erste Lernziele
@@ -103,7 +106,6 @@
 
 
 -----------------------------------------------------
-<!-- Page 8 -->
 # Grad Fahrenheit in Celius (2)
 
     #include <stdio.h>
@@ -127,7 +129,6 @@
 fahrenheit2celsius.c
 
 -----------------------------------------------------
-<!-- Page 9 -->
 # Exkurs Datentypen
 <table border="3">
  <tr>
@@ -182,7 +183,6 @@ fahrenheit2celsius.c
  * limits.h
 
 -----------------------------------------------------
-<!-- Page 10 -->
 # Zurück zu Fahrenheit2Celsius
 
 * Bisher Berechnung auf Ganzzahlen (Integer)
@@ -199,7 +199,6 @@ fahrenheit2celsius\_float.c
 
 
 -----------------------------------------------------
-<!-- Page 11 -->
 # For Schleifen
 
     #include <stdio.h>
@@ -221,7 +220,6 @@ Selbes Ergebnis, aber bedeutend weniger Code.
 
 
 -----------------------------------------------------
-<!-- Page 12 -->
 # Konstanten
 
     #include <stdio.h>
@@ -246,7 +244,6 @@ Selbes Ergebnis, aber bedeutend weniger Code.
 
 
 -----------------------------------------------------
-<!-- Page 13 -->
 # Ein- und Ausgabe(1)
 
     #include <stdio.h>
@@ -268,7 +265,6 @@ character\_counting_1.c
  * EOF
  
 -----------------------------------------------------
-<!-- Page 14 -->
 # Ein- und Ausgabe(2)
 # Alternative Implementierung
 
@@ -290,7 +286,6 @@ Besondere Variante der for-Schleife
    * 'null' Statement
  
 -----------------------------------------------------
-<!-- Page 15 -->
 # Ein- und Ausgabe(3)
 
     #include <stdio.h>
@@ -314,7 +309,6 @@ line\_counting.c
 
 
 -----------------------------------------------------
-<!-- Page 16 -->
 # Arrays(1)
 # Häufigkeitszählung von Ziffern(1)
 
@@ -342,7 +336,6 @@ line\_counting.c
 
 
 -----------------------------------------------------
-<!-- Page 17 -->
 # Arrays(2)
 # Häufigkeitszählung von Ziffern(2)
 
@@ -354,8 +347,104 @@ line\_counting.c
   * int und char sind arithmetisch vergleichbar
   * c-'0' gibt in unserem Fall immer einen Wert zw. 0..9
 
+-----------------------------------------------------
+# Funktionen(1)
+
+Bisher nur integrierte Funktionen genutzt:
+
+ * printf, getchar
+
+Eigene Funktion:
+
+    return-type function-name(parameter declarations, if any) {
+      declarations
+      statements
+    }
+
+-----------------------------------------------------
+# Funktionen(2)
+
+    #include <stdio.h>
+    
+    // function prototype
+    int power(int m, int n);
+    
+    // test power function
+    int main() {
+      int i;
+    
+      for (i = 0; i < 10; i++)
+        printf("%d %d %d\n", i, power(2, i), power(-3, i));
+    
+      // return value for the OS
+      return 0;
+    }
+    
+    // power: raise base to the n-th power; n >= 0
+    int power(int base, int n) {
+      int i, p;
+    
+      p = 1;
+      for (i = 1; i <= n; i++)
+        p = p * base;
+      
+      // return value for the calling function
+      return p;
+    }
+functions\_1.c
+
+-----------------------------------------------------
+# Funktionen(3)
+
+### Warum Funktionen?
+
+ * Lesbarkeit
+ * Wiederverwendbarkeit
+ * Wartbarkeit
+
+### Speziell in C
+
+ * Funktionen können in beliebiger Reihenfolge deklariert und definiert werden
+  * in einem oder mehreren Quelldateien
+ * Variablen einer Funktion sind nur lokal sichtbar
+ * **return** ist an jeder Stelle erlaubt
+  * diesmal auch in main
 
 
+-----------------------------------------------------
+# Funktionen(4)
+
+### Argumente
+
+ * Call by value vs. Call by reference
+ * Beispiel: Siehe power() in functions\_1.c
+  * n ist eine temporaere Variable
+ * Ausnahme: Arrays
+  * Adresse zum Array wird übergeben
+
+-----------------------------------------------------
+# Funktionen(5)
+
+### Call by reference (Arrays)
+
+    #include <stdio.h>
+    
+    int add_one(int []);
+    
+    // Call by reference for arrays
+    int main() {
+      int digit[] = {1};
+    
+      printf("Before call: %d\n", digit[0]);
+      add_one(digit);
+      printf("After call: %d\n", digit[0]);
+    }
+    
+    // tmp[] supposedly should be local, but is it?
+    int add_one(int tmp[]) {
+      tmp[0]++;
+    }
+call\_by\_reference.c
 
 -->
 </script>
