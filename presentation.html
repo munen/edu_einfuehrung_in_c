@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>My Slides</title> 
+    <link rel="stylesheet" type="text/css" media="screen, projection, print" 
+     href="slidy.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection, print" 
+     href="style.css" />
+    <script src="showdown.js"></script>
+    <script src="slidy.js"></script>
+    <script src="sh_main.min.js"></script>
+    
+</head>
+<body>
+<script type=text/markdown>
+<!--
+
+<!-- Page 0 -->
+
+# Einführung in die Programmierung in C
+
+-----------------------------------------------------
+<!-- Page 1 -->
+# Alain M. Lafon
+
+### Berufserfahrung
+
+* 1 Jahr Campus Ambassador - Sun Microsystems
+* 3 Jahre Python, Ruby, (C#) - Swiss Post Solutions AG
+* 1 Jahr Ruby on Rails - Panter LLC
+
+-----------------------------------------------------
+<!-- Page 2 -->
+# Es ist 2011, warum noch C? (1)
+
+* Populäre Sprachen:
+ * Java
+ * .NET
+ * Ruby
+ * Python
+ * PHP
+ * Javascript
+
+-----------------------------------------------------
+<!-- Page 3 -->
+# Es ist 2011, warum noch C? (2)
+
+* Geschwindigkeit ([Alioth Shootout](http://shootout.alioth.debian.org/u32/which-programming-languages-are-fastest.php?gcc=on&java=on&csharp=on&v8=on&yarv=on&php=on&python3=on&calc=chart))
+
+ ![](images/alioth-shootout.png)
+
+-----------------------------------------------------
+<!-- Page 4 -->
+# Es ist 2011, warum noch C? (3)
+
+* Nähe zur Hardware
+  * Betriebssysteme [Linux, Windows (C/C++/ASM), OSX(ObjectiveC)]
+* Gut für Neueinsteiger:
+  * Wenig Syntax
+  * Fördert Verständnis
+* Implementierung anderer Sprachen
+ * CRuby, CPyton, PHP, .NET (C/C++), JS V8 (C++), Sun JVM (C++)
+* Neu: Google Chrome Native Client ([NaCl](http://code.google.com/p/nativeclient/))
+
+-----------------------------------------------------
+<!-- Page 4 -->
+# Hallo Welt
+<pre class="sh_cpp">
+#include <stdio.h>
+int main(void) {
+  printf("Hallo HSZ-T");
+  return 0;
+}
+</pre>
+
+-->
+</script>
+<script>
+var scripts = document.getElementsByTagName('script');
+for (var i = 0; i < scripts.length; i++){
+    var script = scripts[i];
+    if (script.type != 'text/markdown') continue;
+    var md = script.innerHTML.replace(/^\s<!--*/, '')
+        .replace(/-->\s*$/, '');
+    var markup = new Showdown.converter().makeHtml(md);
+    var slides = markup.split('<hr />');
+    for (var j = 0; j < slides.length; j++)
+        document.write('<div class=slide>' + slides[j] + '</div>');
+}
+w3c_slidy.add_listener(document.body, "touchend", w3c_slidy.mouse_button_click);
+</script>
+</body>
+</html>
