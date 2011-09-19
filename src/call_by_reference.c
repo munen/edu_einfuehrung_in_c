@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int add_one(int []);
+void add_one(int []);
 
 // Call by reference for arrays
 int main() {
@@ -12,6 +12,6 @@ int main() {
 }
 
 // tmp[] supposedly should be local, but is it?
-int add_one(int tmp[]) {
+void add_one(int tmp[]) {
   tmp[0]++;
 }
