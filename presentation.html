@@ -22,12 +22,6 @@
 -----------------------------------------------------
 # Informationen
 
-### Berufserfahrung
-
-* 1 Jahr Campus Ambassador - Sun Microsystems
-* 3 Jahre Python, Ruby, (C#) - Swiss Post Solutions AG
-* 1 Jahr Ruby on Rails - Panter LLC
-
 ### Allgemein
 
 * Alain M. Lafon
@@ -35,6 +29,13 @@
 * Folien und Code
  * http://edu.panter.ch/OsEinfuehrungSystemProgrammierung
 * Literatur: Kernighan & Ritchie - The C Programming language
+
+### Berufserfahrung
+
+* 1 Jahr Campus Ambassador - Sun Microsystems
+* 3 Jahre Python, Ruby, (C#) - Swiss Post Solutions AG
+* 1 Jahr Ruby on Rails - Panter LLC
+
 
 ### Besprechung Ablauf
 
@@ -68,22 +69,23 @@
 # Es ist 2011, warum noch C? (3)
 
 * Nähe zur Hardware
-  * Betriebssysteme [Linux, Windows (C/C++/ASM), OSX(ObjectiveC)]
+  * Betriebssysteme [Unix/Linux, Windows (C/C++/ASM), OSX(ObjectiveC)]
 * Gut für Neueinsteiger:
   * Wenig Syntax
   * Fördert Verständnis
 * Implementierung anderer Sprachen
  * CRuby, CPyton, PHP, .NET (C/C++), JS V8 (C++), Sun JVM (C++)
-* Unix == C
 * Neu: Google Chrome Native Client ([NaCl](http://code.google.com/p/nativeclient/))
 * Grundlage für C++, ObjC, (Java..)
 
 -----------------------------------------------------
 # Hallo Welt
     #include <stdio.h>
+
     int main() {
       printf("Hallo HSZ-T\n");
     }
+hallo\_hszt.c
 
 -----------------------------------------------------
 # Hands on!
@@ -472,10 +474,217 @@ strings.c
 
  * C kennt keinen Datentyp String
  * char Arrays werden als String Konstanten gehandhabt
- * '\0' terminiert
+   * '\0' terminiert
  * Hilfs-Funktionen
   * strcpy, strcmp, strlen, ...
  * printf formatter: %s
+
+-----------------------------------------------------
+# Operatoren
+
+### Arithmetisch
+
+ * +, -, *, /
+ * Modulus % (nicht definiert für float, double)
+
+### Relational und Logisch
+
+ * > >= < <=
+ * == !=
+
+-----------------------------------------------------
+# Datentypen Konversion
+
+ * Operatoren mit Operanden unterschiedlichen Typs konvertieren automatisch in den generelleren Typ
+  * 2 / 1.2f wird zu float
+ * manuelle Konversion durch 'casting'
+ <pre>
+      int x = 2;
+      float y = 3.0f;
+      printf("%f\n", ((float)x/y));
+ </pre>
+
+-----------------------------------------------------
+# Bitweise Operatoren für char, short, int und long
+
+ * & bitweise AND
+ * | bitweise Inklusiv-Oder
+ * ^ bitweise Exclusiv-Oder
+ * << links schieben
+ * >> rechts schieben
+ * ~ Komplement
+
+Beispiel:
+
+<pre>
+   x << 2
+</pre>
+
+Ist äquivalent zur Multiplikation mit 4, da der Wert von x um zwei Positionen verschoben wird.
+
+-----------------------------------------------------
+# Bedingte Ausdrücke
+
+    if (a > b) 
+      z = a;
+    else
+      z = b;
+Errechnet das Maximum von a und b.
+
+Kürzer:
+
+    z = ( a > b ) ? a : b;
+
+Allgemein:
+
+    expr1 ? expr2 : expr3
+
+
+-----------------------------------------------------
+# Tools
+### Make(1)
+
+    GCC=/usr/bin/gcc
+
+    test: foo.o
+            $(GCC) -o test foo.o bar.o
+
+    foo.o: bar.o
+            $(GCC) -c foo.c
+
+    bar.o:
+            $(GCC) -c bar.c
+
+    clean:
+            rm -f test foo.o bar.o core
+Makefile
+
+-----------------------------------------------------
+# Tools
+### Make(2)
+
+ * Automatisierung von Arbeitsschritten
+ * Auflösen von Abhängigkeiten
+ * Kompilieren
+
+Prinzip:
+
+ * Definition von Targets und Abhängigkeiten
+  * Befehl um, das Target zu kompilieren
+
+
+-----------------------------------------------------
+# Exec 
+
+    #include <stdio.h>
+    #include <unistd.h>
+
+    int main(void) {
+      execl("/bin/echo", "echo", "Hello, World!", NULL);
+    }
+exec.c
+
+-----------------------------------------------------
+# Fork
+
+    #include <stdio.h>
+    #include <unistd.h>
+
+    int main(void) {
+      pid_t ret_f = fork();
+      pid_t pid   = getpid();
+      printf("%i: return value of fork was %i\n", pid, ret_f);
+      if (ret_f > 0) {
+        waitpid(ret_f);
+      }
+      printf("%i: program end\n", pid, ret_f);
+    }
+fork.c
+
+-----------------------------------------------------
+# Signal
+
+    #include <signal.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+
+    void signal_handler() {
+      printf(" time's up!\n");
+      exit(0);
+    }
+
+    int main() {
+      struct sigaction sa;
+      sa.sa_handler = signal_handler;
+      sigemptyset(&sa.sa_mask);
+      sa.sa_flags = 0;
+      sigaction(SIGALRM, &sa, NULL);
+      alarm(5);
+      while(1) {
+        printf(".");
+        fflush(stdout);
+        sleep(1);
+      }
+    }
+signal.c
+
+-----------------------------------------------------
+# Socket
+
+    /* sends a string via udp.
+     * a valid listener is netcat:
+     * netcat -lup 4000
+     */
+
+    #include <sys/socket.h>
+    #include <sys/types.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <netinet/ip.h>
+
+
+    int main(void)
+    {
+      char *msg = "Hello, World!\n";
+      int sock = socket(AF_INET, SOCK_DGRAM, 0);
+      struct sockaddr_in server;
+      server.sin_family = AF_INET;
+      server.sin_port   = htons(4000);
+      server.sin_addr.s_addr = inet_addr("127.0.0.1");
+      sendto(sock, msg, strlen(msg)+1, 0, (struct sockaddr*)&server,
+             sizeof(server));
+      close(sock);
+      exit(0);
+    }
+socket.c
+
+-----------------------------------------------------
+# Wait
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <sys/wait.h>
+
+    int main(void) {
+      pid_t ret_f = fork();
+      if (0 == ret_f) {
+        exit(-1);
+      }
+      int status;
+      wait(&status);
+      status = WEXITSTATUS(status);
+      printf("child exit status: %i\n", status);
+      exit(-1);
+    }
+wait.c
+
+
+
+
+
+
 -->
 </script>
 <script>
