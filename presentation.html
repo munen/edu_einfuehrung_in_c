@@ -984,7 +984,66 @@ int foo(int n) {
 static\_local\_var.c 
 
 
+-----------------------------------------------------
+# Funktionen (7)
+### Register Variablen
 
+* 'register' Anweisungen legen dem Compiler nahe, dass die Variable viel genutzt wird
+* Sie können in CPU Registern gespeichert werden 
+ * => kleinere und schnellere Programme
+* Anweisung nur für automatische Variable und Funktionsparameter möglich
+ * Automatische Variable sind Variable mit lokalem Scope (Erstellen/Vernichten automatisch)
+* Restriktionen durch unterliegende Hardware
+* Zu ausschweifende Nutzung harmlos (Compileroptimierung)
+* Addressauslesen eines Registers nicht möglich
+
+<pre>
+register int x; register char c;
+</pre>
+
+
+-----------------------------------------------------
+# Funktionen (8)
+### Initialisierung (1)
+
+* In Absenz expliziter Initialisierung 
+ * 'extern' und 'static' Variablen werden mit 0 initialisiert
+ * automatische und 'register' Variablen haben keinen definierten Wert(Müll) 
+* 'extern' und 'static' Variable können nur mit 'const' Ausdrücken initialisiert werden
+* Automatische und 'register' Variable können mit Ausdrücken initialisiert werden
+ * bereits definierte Variable
+ * Funktionsaufrufe
+
+-----------------------------------------------------
+# Funktionen (9)
+### Initialisierung (2)
+
+* Arrays können mit einer Liste von Werten initialisiert werden
+
+Liste der Tage pro Monat
+<pre>
+int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+</pre>
+
+* Weniger Initialwerten als Grösse des Arrays => Restliche Werte mit 0 initialisiert
+* Fehler bei zu vielen Initialwerten
+
+-----------------------------------------------------
+# Funktionen (10)
+### Rekursion
+
+* Jeder Aufruf der Funktion erhält neue automatische Variable
+
+Fibonacci Funktion:
+
+![](images/fibonacci_definition.jpg) 
+
+![](images/fibonacci_folge.jpg)
+<pre>
+int fib(int n) {
+  return (n < 2) ? n : fib(n-1) + fib(n-2);
+}
+</pre>
 
 
 
