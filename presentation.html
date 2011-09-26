@@ -841,6 +841,9 @@ for (i = 0; i < n; i++)
 
 * kann in den schlimmsten Varianten schief gehen
 * nur wenige (offiziell gute) Einsatzgebiete
+* Code mit 'goto' ist allgemein 
+ * schwerer zu lesen
+ * schwieriger zu maintainen
 * Label haben die Form von Variablen und werden von ':' gefolgt
 
 #### Verlassen tief verschachtelter Schleifen
@@ -889,6 +892,50 @@ else
   /* didn't find a common element */
   ...
 </pre>
+
+-----------------------------------------------------
+# Funktionen (1)
+### return expression;
+
+* expression wird in den Rückgabetyp konvertiert
+* Klammern um expression sind optional
+* Aufrufende Funktion kann Rückgabewert ignorieren
+* expression ist optional 
+ * return als 'break' für Funktionen
+ * Legal, aber schwierig an manchen Stellen Rückgabe zu haben und anderswo nicht
+
+-----------------------------------------------------
+# Funktionen (2)
+### Scope (1)
+
+* Scope ist der Teil eines Programms in dem ein Name genutzt werden kann
+* Externe Variable 
+    * sind für mehrere Funktionen zugänglich
+    * Scope beginnt mit Deklaration
+    * Scope endet mit Ende der Quelldatei
+    * Referenz aus anderer Quelldatei oder vor Deklaration möglich mit Schlüsselwort 'extern'
+    * Deklaration vs. Definition
+      * Deklaration: Eigenschaften (Typ) der Variable
+      * Definition: Speicher bereitstellen
+    * müssen unter allen Quelldateien eindeutig sein
+
+-----------------------------------------------------
+# Funktionen (3)
+### Scope (2)
+
+* Funktionen und externe Variable eines C Programms müssen nicht zur selben
+  Zeit kompiliert werden
+ * Mehrere Quelldateien
+ * Binäre Bibliotheken
+
+-----------------------------------------------------
+# Funktionen (4)
+### Header Dateien
+
+* Zentrale Stelle für Definitionen und Deklarationen unter mehreren
+  Quelldateien
+
+ ![](images/header_files.jpg)
 
 
 
