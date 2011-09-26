@@ -937,7 +937,51 @@ else
 
  ![](images/header_files.jpg)
 
+-----------------------------------------------------
+# Funktionen (5)
+### Static Variablen (1)
 
+* Limitiert den Scope von Variablen auf die aktuelle Quelldatei
+ * siehe sp/val in stack.c und buf/bufp in getch.c
+* gängig für Variable, funktioniert aber auch für Funktionen
+
+<pre>
+static char buf[BUFSIZE]; /* buffer for ungetch */
+int bufp = 0; /* next free position in buf */
+
+int getch(void) { ... }
+void ungetch(int c) { ... }
+</pre>
+
+ 
+-----------------------------------------------------
+# Funktionen (6)
+### Static Variablen (2)
+
+* Static Variablen innert eines Funktionsrumpfes behalten ihren Speicher auch
+  nach beenden der Funktion
+
+<pre>
+#include <stdio.h>
+
+int main() {
+  int i;
+
+  printf("First call with argument '10': \t%d\n", foo(10));
+  for(i=1; i<10; i++)
+    printf("%dth call without argument: \t%d\n", i, foo());
+}
+
+int foo(int n) {
+  static int x;
+  if(n)
+    x = n;
+  else
+    x++;
+  return x;
+}
+</pre>
+static\_local\_var.c 
 
 
 
