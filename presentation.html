@@ -1135,24 +1135,133 @@ oder
 
 * Spezielle Kurzformen '#ifdef' und '#ifndef'
 
+-----------------------------------------------------
+# Zeiger und Arrays (1)
+
+* Zeiger(Pointer) ist 
+ * eine Variable und enthält Adresse einer anderen Variable
+ * eine Gruppe aus Speicherzellen
+* Es ist möglich _unverständlichen_ Code mit exzessivem Nutzen von Zeigern zu schreiben
+ * Mit Disziplin jedoch werden Programme conciser und werden einfacher
+
+Beispiel: _c_ ist ein 'char' und p zeigt darauf 
+
+![](images/pointer_1.jpg)
 
 
+-----------------------------------------------------
+# Zeiger und Arrays (2)
+
+* Der unäre Operator & gibt die Adresse eines Objektes zurück
+ * nur für Variable und Array Elemente. Nicht für Ausdrücke, Konstanten und 'register' Variable.
+<pre>
+p = &c;
+</pre>
+
+* Der unäre Operator * ist die Umkehrung (Dereferencing). 
+ * er gibt den Wert des Objektes auf das gezeigt wird zurück
+
+<pre>
+int x = 1, y = 2, z[10]; 
+int *ip;    /* ip is a pointer to int */
+ip = &x;    /* ip now points to x */
+y = *ip;    /* y is now 1 */
+*ip = 0;    /* x is now 0 */
+ip = &z[0]; /* ip now points to z[0] */
+</pre>
+
+* Zeiger und Funktionsargumente
+  * Call by Reference vs Call by Value
 
 
+-----------------------------------------------------
+# Zeiger und Arrays (3)
+
+* 'int *ip;' ist eine Eselsbrücke und zeigt an, dass die Variable auf die gezeigt wird einen 'int' enthält
+ * Ein Zeiger ist dadurch aber auch beschränkt auf eine Variable des richtigen Typs zu zeigen
+ * Alternativ 'void *': Zeigt auf jeden Typ, aber kann selbst nicht dereferenziert werden
+
+Wenn ip auf einen Integer x zeigt, dann kann *ip an jeder Stelle vorkommen an der sonst x stünde:
+<pre>
+*ip = *ip + 10;
+y = *ip + 1;
+*ip += 1;
+++*ip;
+(*ip)++; // Parantheses are needed. Otherwise the pointer would be increased, not the value behind it's variable.
+</pre>
+
+* Da Zeiger Variable sind, können sie auch ohne Dereferenzierung genutzt werden. 
+
+Wenn 'iq' ein anderer Zeiger auf einen int ist:
+<pre>
+iq = ip;
+</pre>
+
+-----------------------------------------------------
+# Zeiger und Arrays (4)
+
+* Zeiger und Arrays eng miteinander verwandt
+ * Jede Array-Operation kann auch als Zeiger Operation umgesetzt werden
+ * Die Zeiger Variante ist in der Regel schneller, aber für Anfänger schwerer zu verstehen
+
+<pre>
+int a[10];
+</pre>
+![](images/array_1.jpg)
+
+* Wenn pa ein Zeiger auf einen Integer ist
+<pre>
+int *pa;
+// sets pa to point to element zero of a. pa has the address of a[0].
+pa = &a[0]; 
+</pre>
+![](images/array_2.jpg)
+
+-----------------------------------------------------
+# Zeiger und Arrays (5)
+
+Forführung Beispiel letzter Slide.
+<pre>
+x = *pa; // will copy the contents of a[0] into x
+*(pa+1); // refers to the contents of a[i]
+</pre>
+
+* Indexierung und Zeiger Arithmetik ist sehr eng verwandt. Daher gibt es folgende Abkürzung:
+<pre>
+pa = &a[0];
+// is the same as
+pa = a;
+</pre>
+
+* Ebenso:
+
+<pre>
+*(pa+i);
+// is the same as
+pa[i];
+</pre>
+
+-----------------------------------------------------
+# Zeiger und Arrays (6)
+
+* Wichtiger Unterschied zw. Zeiger Arithmetik und Arrays
+ * Zeiger sind Variable
+ * Array Namen sind keine Variable
+
+Funktioniert:
+<pre>
+pa=a;
+pa++;
+</pre>
+
+Funktioniert nicht:
+<pre>
+a=pa;
+a++;
+</pre>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// page 89 K & C
 
 
 
