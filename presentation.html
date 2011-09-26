@@ -894,7 +894,7 @@ else
 </pre>
 
 -----------------------------------------------------
-# Funktionen (1)
+# Funktionen und Programmstruktur (1)
 ### return expression;
 
 * expression wird in den Rückgabetyp konvertiert
@@ -905,7 +905,7 @@ else
  * Legal, aber schwierig an manchen Stellen Rückgabe zu haben und anderswo nicht
 
 -----------------------------------------------------
-# Funktionen (2)
+# Funktionen und Programmstruktur (2)
 ### Scope (1)
 
 * Scope ist der Teil eines Programms in dem ein Name genutzt werden kann
@@ -920,7 +920,7 @@ else
     * müssen unter allen Quelldateien eindeutig sein
 
 -----------------------------------------------------
-# Funktionen (3)
+# Funktionen und Programmstruktur (3)
 ### Scope (2)
 
 * Funktionen und externe Variable eines C Programms müssen nicht zur selben
@@ -929,7 +929,7 @@ else
  * Binäre Bibliotheken
 
 -----------------------------------------------------
-# Funktionen (4)
+# Funktionen und Programmstruktur (4)
 ### Header Dateien
 
 * Zentrale Stelle für Definitionen und Deklarationen unter mehreren
@@ -938,7 +938,7 @@ else
  ![](images/header_files.jpg)
 
 -----------------------------------------------------
-# Funktionen (5)
+# Funktionen und Programmstruktur (5)
 ### Static Variablen (1)
 
 * Limitiert den Scope von Variablen auf die aktuelle Quelldatei
@@ -955,7 +955,7 @@ void ungetch(int c) { ... }
 
  
 -----------------------------------------------------
-# Funktionen (6)
+# Funktionen und Programmstruktur (6)
 ### Static Variablen (2)
 
 * Static Variablen innert eines Funktionsrumpfes behalten ihren Speicher auch
@@ -985,7 +985,7 @@ static\_local\_var.c
 
 
 -----------------------------------------------------
-# Funktionen (7)
+# Funktionen und Programmstruktur (7)
 ### Register Variablen
 
 * 'register' Anweisungen legen dem Compiler nahe, dass die Variable viel genutzt wird
@@ -1003,7 +1003,7 @@ register int x; register char c;
 
 
 -----------------------------------------------------
-# Funktionen (8)
+# Funktionen und Programmstruktur (8)
 ### Initialisierung (1)
 
 * In Absenz expliziter Initialisierung 
@@ -1015,7 +1015,7 @@ register int x; register char c;
  * Funktionsaufrufe
 
 -----------------------------------------------------
-# Funktionen (9)
+# Funktionen und Programmstruktur (9)
 ### Initialisierung (2)
 
 * Arrays können mit einer Liste von Werten initialisiert werden
@@ -1029,7 +1029,7 @@ int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 * Fehler bei zu vielen Initialwerten
 
 -----------------------------------------------------
-# Funktionen (10)
+# Funktionen und Programmstruktur (10)
 ### Rekursion
 
 * Jeder Aufruf der Funktion erhält neue automatische Variable
@@ -1044,6 +1044,127 @@ int fib(int n) {
   return (n < 2) ? n : fib(n-1) + fib(n-2);
 }
 </pre>
+
+
+-----------------------------------------------------
+# Funktionen und Programmstruktur (11)
+### Präprozessor (1)
+
+* Datei Einschluss
+
+<pre>
+// sucht zuerst im Pfad der Programmquellen
+#include "filename"
+
+// sucht in implementierungsabhängigen Stellen (etwa /usr/include)
+#include <filename>
+</pre>
+    
+* Makro Ersetzung
+ * Nur für Tokens; nicht innerhalb von Strings oder Teil-Tokens
+
+* Beliebiger Ersetzungstext
+<pre>
+#define forever for (;;)        
+</pre>
+
+-----------------------------------------------------
+# Funktionen und Programmstruktur (12)
+### Präprozessor (2)
+
+* Argumente sind möglich
+<pre>
+#define max(A, B) ((A) > (B) ? (A) : (B))
+</pre>
+
+<pre>
+x = max(p+q, r+s);
+x = ((p+q) > (r+s) ? (p+q) : (r+s));
+</pre>
+
+* Aber Achtung:
+<pre>
+max(i++, j++) /* WRONG */
+</pre>
+
+* Ebenso Falsch:
+<pre>
+#define square(x) x * x /* WRONG */
+square(z+1)
+</pre>
+
+
+-----------------------------------------------------
+# Funktionen und Programmstruktur (13)
+### Präprozessor (3)
+
+* Namen können mit '#undef' undefiniert werden
+ * Sicherstellen, dass Routine eine Funktion und kein Macro ist
+
+<pre>
+#undef getchar
+int getchar(void) { ... }
+</pre>
+
+
+-----------------------------------------------------
+# Funktionen und Programmstruktur (14)
+### Präprozessor (4)
+
+* Konditionelles Einbinden
+
+<pre>
+#if !defined(HDR) 
+  #define HDR
+/* contents of hdr.h go here */
+#endif
+</pre>
+
+oder
+
+<pre>
+#elif SYSTEM == BSD 
+  #define HDR "bsd.h"
+#elif SYSTEM == WIN32 
+  #define HDR "win32.h"
+#else 
+  #define HDR "default.h"
+#endif 
+#include HDR
+</pre>
+
+* Spezielle Kurzformen '#ifdef' und '#ifndef'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
