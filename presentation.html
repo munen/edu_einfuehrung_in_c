@@ -837,10 +837,58 @@ for (i = 0; i < n; i++)
 
 -----------------------------------------------------
 # Kontrollfluss (11)
-### Goto und Label
+### Goto und Label (1)
 
+* kann in den schlimmsten Varianten schief gehen
+* nur wenige (offiziell gute) Einsatzgebiete
+* Label haben die Form von Variablen und werden von ':' gefolgt
 
+#### Verlassen tief verschachtelter Schleifen
 
+<pre>
+for (...)
+  for (...) {
+    ...
+    if (disaster)
+      goto error;
+  }
+...
+error: /* clean up the mess */
+</pre>
+
+-----------------------------------------------------
+# Kontrollfluss (12)
+### Goto und Label (2)
+
+* Code mit 'goto' kann immer auch ohne geschrieben werden
+ * Manchmal zu Lasten von extra Tests und Variablen
+
+Mit goto:
+<pre>
+for (i = 0; i < n; i++) 
+  for (j = 0; j < m; j++)
+    if (a[i] == b[j]) 
+      goto found;
+/* didn't find any common element */
+... 
+found:
+  /* got one: a[i] == b[j] */ 
+  ...
+</pre>
+Ohne goto:
+<pre>
+found = 0; 
+for (i = 0; i < n && !found; i++)
+  for (j = 0; j < m && !found; j++)
+    if (a[i] == b[j])
+      found = 1;
+if (found) 
+  /* got one: a[i-1] == b[j-1] */ 
+  ...
+else
+  /* didn't find a common element */
+  ...
+</pre>
 
 
 
