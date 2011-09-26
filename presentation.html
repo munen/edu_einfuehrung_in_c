@@ -572,6 +572,104 @@ Prinzip:
  * Definition von Targets und Abhängigkeiten
   * Befehl um, das Target zu kompilieren
 
+-----------------------------------------------------
+# Konstanten (1)
+
+ * Integer Konstante: 123456
+ * Long Konstante: 123456L
+   * Demo Überläufe
+ * Unsigned Konstante: 123456u
+ * Unsigned Long Konstante: 123456ul
+ * Notationen
+   * Oktal: 0123456 (führende Null)
+   * Hexadezimal: 0x123456
+   * Oktale und hexadzimale Konstanten können ebenfalls unsigned und long sein
+ * Zeichen Konstanten sind Integer
+  * geschrieben in einfachen Anführungszeichen ('a')
+  * Alternativ '\0122' und '\xhh'
+
+-----------------------------------------------------
+# Konstanten (2)
+### Escape Sequences
+
+    |------------|--------------|------------|--------------|
+    | \a         | alert/bell   | \v         | vert. tab    | 
+    | \b         | backspace    | \\         | backslash    | 
+    | \f         | formfeed     | \'         | single quote | 
+    | \n         | newline      | \"         | double quote | 
+    | \r         | carriage ret | \000       | oktal num    | 
+    | \t         | horiz. tab   | \xff       | hex num      | 
+    |------------|--------------|------------|--------------|
+
+Die Konstante '\0' hat den Wert 0.
+
+-----------------------------------------------------
+# Konstanten (3)
+### Strings 
+
+ * String Konstante: "Ich bin ein String"
+ * "" (leerer String; Anführungszeichen sind nicht Teil des Strings)
+ * "hallo " "hsz-t" äquivalent zu "hallo hsz-t"
+  * Strings können zur Kompilierzeit konkateniert werden
+  * Sinnvoll, um lange Zeilen umzubrechen
+ * String Funktionen definiert in string.h
+  * man 3 string
+  * /usr/include
+ * 'x' ungleich "x" (Integer vs. Zeichen-Array + '\0')
+
+-----------------------------------------------------
+# Konstanten (4)
+### Enumeration 
+
+    enum boolean { NO, YES };
+
+Der erste Wert eines enum hat den Wert 0, der nächste 1 und so weiter - es sei
+denn es werden explizite Werte definiert.
+
+   enum escapes { BELL = '\a', BACKSPACE = '\b' };
+
+Namen in unterschiedlichen enumerations müssen eindeutig sein. Die Werte
+innerhalb eines enums müssen nicht eindeutig sein.
+
+Enumerations bieten eine komfortablen Möglichkeit, um Konstanten mit Namen zu
+definieren - eine gute Alternative zu #define. Variablen in Enumerations haben
+
+* Vorteile enum vs. #define:
+ * Variable können vom Compiler geprüft zu werden
+ * Debugger können symbolische Konstanten anzeigen
+
+-----------------------------------------------------
+# Deklaration
+
+* Variablen müssen vor Nutzen deklariert werden
+* einige Deklarationen können implizit durch den Inhalt bestimmt werden
+* Deklarationen spezifizieren Typ und einen oder mehrere Variablennamen
+* Variablen können bei Deklaration initialisiert werden
+* Variablen in Blöcken und Funktionen können mit Ausdrücken initialsiert werden
+* Kennzeichner 'const' bei Deklaration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -----------------------------------------------------
 # Exec 
