@@ -649,12 +649,195 @@ definieren - eine gute Alternative zu #define. Variablen in Enumerations haben
 * Kennzeichner 'const' bei Deklaration
 
 
+-----------------------------------------------------
+# Kontrollfluss (1)
+### If-Else (1)
+
+Formale Syntax:
+
+    if (expression)
+      statement_1
+    else
+      statement_2
+
+Äquivalent
+
+    if (expression)
+    if (expression != 0)
+
+-----------------------------------------------------
+# Kontrollfluss (2)
+### If-Else (2)
+
+Assoziation
+    
+    if (n > 0)
+      if (a > b)
+        z = a;
+      else
+        z = b;
+
+    vs
+
+    if (n > 0) {
+      if (a > b)
+        z = a;
+    } else
+      z = b;
 
 
+-----------------------------------------------------
+# Kontrollfluss (3)
+### Else-If
+
+    if (expression)
+      statement
+    else if (expression)
+      statement
+    else if (expression)
+      statement
+    else
+      statement
+
+* 'else' ist optional. Kann genutzt werden, um generellen Fehler zu beschreiben.
 
 
+-----------------------------------------------------
+# Kontrollfluss (4)
+### Switch(1)
+
+    switch (expression) {
+      case const-expr: statements
+      case const-expr: statements
+      default: statements
+    }
+
+* 'case' Label enthalten Integer Konstanten
+* 'default' Label wird ausgeführt falls keine andere Bedingung zutrifft
+  * 'default' ist optional
+* Evaluation von statements unter case wird mit 'break' beendet
 
 
+Altes Beispiel - Zählen von Ziffern:
+
+    switch (c) {
+     case '0': case '1': case '2':
+       ndigit[c-'0']++;
+       break;
+     case ' ':
+     case '\n':
+     case '\t':
+       white_space_count++
+       break;
+     }
+       
+-----------------------------------------------------
+# Kontrollfluss (5)
+### Switch(2)
+
+* 'break' beendet 'switch' 
+* 'case' ist nur ein Label. Verarbeitung läuft ohne explizite Aktion diese zu
+  verlassen weiter und fällt in das nächste 'case' Statement.
+  * Hierauf immer achten! Vor allem bei Ändern von bestehendem Code.
+* 'break' wird ebenso in 'while' 'for' und 'do' Schleifen genutzt
+* Guter Stil: 'break' nach letztem Label - syntaktisch aber nicht notwendig
+  * Stichwort: Defensives Programmieren
+
+    
+-----------------------------------------------------
+# Kontrollfluss (6)
+### While und For (1)
+
+While Syntax:
+
+    while (expression)
+      statement
+
+For Syntax:
+
+    for (expr_1; expr_2; expr_3)
+      statement
+
+äquivalent zu:
+
+    expr_1;
+    while (expr_2) {
+       statement
+       expr_3;
+    }
+    
+-----------------------------------------------------
+# Kontrollfluss (7)
+### While und For (2)
+
+* For: jeder der drei Ausdrücke ist optional
+
+####'Infinite Loop'
+
+* kann durch 'break' oder 'return' beendet werden
+* garantiert die Ausführung der Ausdrücke von links nach rechts
+<pre>
+   for (;;) {}
+</pre>
+
+-----------------------------------------------------
+# Kontrollfluss (8)
+### Komma-Operator
+
+* meist genutzt in 'for' Schleifen
+ * sind insgesamt aber selten zu finden
+
+<pre>
+#include <string.h>
+
+/* reverse: reverse string s in place */ 
+void reverse(char s[]) {
+  int c, i, j;
+  for (i = 0, j = strlen(s)-1; i < j; i++, j--) { 
+    c = s[i];
+    s[i] = s[j]; 
+    s[j] = c;
+  }
+}
+</pre>
+reverse.c
+
+-----------------------------------------------------
+# Kontrollfluss (9)
+### Do-While
+
+* Seltener genutzt als 'for' und 'while'
+* Führt Block mindestens einmal aus
+
+<pre>
+do
+  statement
+while (expression);
+</pre>
+
+-----------------------------------------------------
+# Kontrollfluss (10)
+### Break und Continue
+
+* 'break' 
+ * beendet die innerste Schleife in 'for', 'while', 'do' und 'switch'
+* 'continue' 
+ * ist verwandt, wird aber weniger genutzt
+ * beendet die Ausführung der innersten Schleife und startet nächste Iteration
+ * funktioniert nur in Schleifen, nicht in 'switch'
+
+<pre>
+for (i = 0; i < n; i++) 
+  /* skip negative elements */
+  if (a[i] < 0)   
+    continue; 
+  ... /* do positive elements */
+</pre>
+
+
+-----------------------------------------------------
+# Kontrollfluss (11)
+### Goto und Label
 
 
 
