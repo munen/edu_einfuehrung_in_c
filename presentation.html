@@ -1261,14 +1261,92 @@ a++;
 </pre>
 
 
-// page 89 K & C
+-----------------------------------------------------
+# Zeiger und Arrays (7)
+
+* Wenn Array als Funktionsparameter übergeben wird, wird die Adresse des ersten Elements übergeben
+ * Innerhalb der Funktion ist der Zeiger eine locale Variable
+<pre>
+/* strlen: return length of string s */ 
+int strlen(char *s) {
+  int n;
+  for (n = 0; *s != '\0'; s++) 
+    n++;
+  return n;
+}
+</pre>
+strlen.c
+
+* Da 's' ein Zeiger ist, kann er Seiteneffekt inkrementiert werden
+Diese Aufrufe funktionieren alle:
+<pre>
+strlen("hello, world"); /* string constant */
+strlen(array); /* char array[100]; */
+strlen(ptr); /* char *ptr; */
+</pre>
+
+-----------------------------------------------------
+# Zeiger und Arrays (8)
+
+* Als formale Parameter sind 'char s[];' und 'char *s;' äquivalent
+ * 'char *s;' zeigt allerdings klarer, dass Variable ein Zeiger ist
+* Möglich ist nur Teile eines Arrays als Funktionsparameter zu übergeben
+ * 'f(a+2)' oder 'f(&a[2])'
+ * Die gerufene Funktion weiss nicht, dass es sich nur um einen Teil handelt
 
 
+-----------------------------------------------------
+# Zeiger und Arrays (9)
+### Adress Arithmetik (1)
+#### Navive Implementierung von malloc/free (1)
+ ![](images/storage_management_1.jpg)
+
+-----------------------------------------------------
+# Zeiger und Arrays (10)
+### Adress Arithmetik (2)
+#### Naive Implementierung von malloc/free (2)
+<pre>
+#define ALLOCSIZE 10000 /* size of available space */
+
+static char allocbuf[ALLOCSIZE]; /* storage for alloc */ 
+static char *allocp = allocbuf; /* next free position */
+
+char *alloc(int n) /* return pointer to n characters */ 
+{
+  if (allocbuf + ALLOCSIZE - allocp >= n) { 
+    /* it fits */
+    allocp += n;
+  return allocp - n; /* old p */ 
+  } 
+  else  /* not enough room */
+    return 0;
+}
+
+void afree(char *p) /* free storage pointed to by p */ 
+{
+  if (p >= allocbuf && p < allocbuf + ALLOCSIZE) 
+    allocp = p;
+}
+</pre>
+
+-----------------------------------------------------
+# Zeiger und Arrays (11)
+### Adress Arithmetik (3)
+#### Naive Implementierung von malloc/free (3)
+
+Wer sieht das Usability Problem dieser Implementierung?
 
 
+-----------------------------------------------------
+# Zeiger und Arrays (12)
+### Adress Arithmetik (4)
 
-
-
+* Zeiger können unter Umständen miteinander verglichen werden
+ * ==, !=, <, >=, etc
+* 'p < q' ist wahr wenn 
+ * 'p' auf ein früheres Element im gleichen Array zeigt als 'q'
+* Zeiger können addiert oder subtrahiert weden
+ * 'p + n' bedeutet die Adresse des n-ten Objects von 'p' aus gesehen
 
 
 
