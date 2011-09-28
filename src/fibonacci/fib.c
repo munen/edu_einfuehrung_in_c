@@ -1,12 +1,17 @@
-#include <stdio.h>
-#include "read_num.h"
+int main(void) {
+  char buf[100000000000];
 
-int fib(int n) {
-  return (n < 2) ? n : fib(n-1) + fib(n-2);
+  char *begin;
+  char *current_position;
+
+  begin = buf;
+
+
 }
 
-int main(void) {
-  printf("num: ");
-  printf("fib: %i\n", fib(read_num()));
-  return 0;
+
+int *alloc(n) {
+}
+
+int *free(n) {
 }

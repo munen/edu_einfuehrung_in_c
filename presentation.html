@@ -3,10 +3,8 @@
 <head> 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>My Slides</title> 
-    <link rel="stylesheet" type="text/css" media="screen, projection, print" 
-     href="slidy.css" />
-    <link rel="stylesheet" type="text/css" media="screen, projection, print" 
-     href="style.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection, print" href="slidy.css" />
+    <link rel="stylesheet" type="text/css" media="screen, projection, print" href="style.css" />
     <script src="showdown.js"></script>
     <script src="slidy.js"></script>
     <script src="sh_main.min.js"></script>
@@ -132,6 +130,7 @@ fahrenheit2celsius.c
 
 -----------------------------------------------------
 # Exkurs Datentypen
+* Grösse der Datentypen ist abhängig von der Platform (limits.h)
 <table border="3">
  <tr>
    <td>
@@ -181,8 +180,6 @@ fahrenheit2celsius.c
  </tr>
 </table>
 
-* Grösse der Datentypen ist abhängig von der Platform
- * limits.h
 
 -----------------------------------------------------
 # Zurück zu Fahrenheit2Celsius
@@ -626,13 +623,15 @@ Die Konstante '\0' hat den Wert 0.
 Der erste Wert eines enum hat den Wert 0, der nächste 1 und so weiter - es sei
 denn es werden explizite Werte definiert.
 
+<pre>
    enum escapes { BELL = '\a', BACKSPACE = '\b' };
+</pre>
 
 Namen in unterschiedlichen enumerations müssen eindeutig sein. Die Werte
 innerhalb eines enums müssen nicht eindeutig sein.
 
 Enumerations bieten eine komfortablen Möglichkeit, um Konstanten mit Namen zu
-definieren - eine gute Alternative zu #define. Variablen in Enumerations haben
+definieren - eine gute Alternative zu #define.
 
 * Vorteile enum vs. #define:
  * Variable können vom Compiler geprüft zu werden
@@ -642,11 +641,10 @@ definieren - eine gute Alternative zu #define. Variablen in Enumerations haben
 # Deklaration
 
 * Variablen müssen vor Nutzen deklariert werden
-* einige Deklarationen können implizit durch den Inhalt bestimmt werden
 * Deklarationen spezifizieren Typ und einen oder mehrere Variablennamen
 * Variablen können bei Deklaration initialisiert werden
-* Variablen in Blöcken und Funktionen können mit Ausdrücken initialsiert werden
-* Kennzeichner 'const' bei Deklaration
+* Variablen in Blöcken und Funktionen können mit Ausdrücken initialisiert werden
+* Kennzeichner 'const' bei Deklaration für nicht änderbare Variableninhalte
 
 
 -----------------------------------------------------
@@ -715,11 +713,11 @@ Assoziation
 * 'case' Label enthalten Integer Konstanten
 * 'default' Label wird ausgeführt falls keine andere Bedingung zutrifft
   * 'default' ist optional
-* Evaluation von statements unter case wird mit 'break' beendet
+* Evaluation von statements unter 'case' wird mit 'break' beendet
 
 
 Altes Beispiel - Zählen von Ziffern:
-
+<pre>
     switch (c) {
      case '0': case '1': case '2':
        ndigit[c-'0']++;
@@ -730,14 +728,13 @@ Altes Beispiel - Zählen von Ziffern:
        white_space_count++
        break;
      }
-       
+</pre>
 -----------------------------------------------------
 # Kontrollfluss (5)
 ### Switch(2)
 
 * 'break' beendet 'switch' 
-* 'case' ist nur ein Label. Verarbeitung läuft ohne explizite Aktion diese zu
-  verlassen weiter und fällt in das nächste 'case' Statement.
+* 'case' ist nur ein Label. Verarbeitung läuft ohne explizite Aktion den Block zu verlassen weiter und fällt in das nächste 'case' Statement.
   * Hierauf immer achten! Vor allem bei Ändern von bestehendem Code.
 * 'break' wird ebenso in 'while' 'for' und 'do' Schleifen genutzt
 * Guter Stil: 'break' nach letztem Label - syntaktisch aber nicht notwendig
@@ -887,10 +884,8 @@ for (i = 0; i < n && !found; i++)
       found = 1;
 if (found) 
   /* got one: a[i-1] == b[j-1] */ 
-  ...
 else
   /* didn't find a common element */
-  ...
 </pre>
 
 -----------------------------------------------------
@@ -935,22 +930,17 @@ else
 * Zentrale Stelle für Definitionen und Deklarationen unter mehreren
   Quelldateien
 
- ![](images/header_files.jpg)
+  <img src="images/header_files.jpg" style="@media print { height:300px; }")
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (5)
 ### Static Variablen (1)
 
 * Limitiert den Scope von Variablen auf die aktuelle Quelldatei
- * siehe sp/val in stack.c und buf/bufp in getch.c
 * gängig für Variable, funktioniert aber auch für Funktionen
 
 <pre>
-static char buf[BUFSIZE]; /* buffer for ungetch */
-int bufp = 0; /* next free position in buf */
-
-int getch(void) { ... }
-void ungetch(int c) { ... }
+static char buf[BUFSIZE];
 </pre>
 
  
@@ -1025,29 +1015,44 @@ Liste der Tage pro Monat
 int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 </pre>
 
-* Weniger Initialwerten als Grösse des Arrays => Restliche Werte mit 0 initialisiert
+* Weniger Initialwerte als Grösse des Arrays => Restliche Werte mit 0 initialisiert
 * Fehler bei zu vielen Initialwerten
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (10)
-### Rekursion
+### Rekursion (1)
 
 * Jeder Aufruf der Funktion erhält neue automatische Variable
 
+###Code Workshop - jeder für sich:
+
 Fibonacci Funktion:
 
-![](images/fibonacci_definition.jpg) 
+![](images/fibonacci_definition.jpg) ![](images/fibonacci_folge.jpg)
 
-![](images/fibonacci_folge.jpg)
+-----------------------------------------------------
+# Funktionen und Programmstruktur (11)
+### Rekursion (2)
+
+* Lösung in C
 <pre>
 int fib(int n) {
   return (n < 2) ? n : fib(n-1) + fib(n-2);
 }
 </pre>
 
+* Lösung in Ruby
+<pre>
+def fib(n)
+  (n < 2) ? n : fib(n-1) + fib(n-2)
+end
+</pre>
+
+* Demo Geschwindigkeitsunterschied
+
 
 -----------------------------------------------------
-# Funktionen und Programmstruktur (11)
+# Funktionen und Programmstruktur (12)
 ### Präprozessor (1)
 
 * Datei Einschluss
@@ -1057,7 +1062,7 @@ int fib(int n) {
 #include "filename"
 
 // sucht in implementierungsabhängigen Stellen (etwa /usr/include)
-#include <filename>
+#include &lt;filename>
 </pre>
     
 * Makro Ersetzung
@@ -1069,7 +1074,7 @@ int fib(int n) {
 </pre>
 
 -----------------------------------------------------
-# Funktionen und Programmstruktur (12)
+# Funktionen und Programmstruktur (13)
 ### Präprozessor (2)
 
 * Argumente sind möglich
@@ -1084,18 +1089,13 @@ x = ((p+q) > (r+s) ? (p+q) : (r+s));
 
 * Aber Achtung:
 <pre>
-max(i++, j++) /* WRONG */
-</pre>
-
-* Ebenso Falsch:
-<pre>
 #define square(x) x * x /* WRONG */
 square(z+1)
 </pre>
 
 
 -----------------------------------------------------
-# Funktionen und Programmstruktur (13)
+# Funktionen und Programmstruktur (14)
 ### Präprozessor (3)
 
 * Namen können mit '#undef' undefiniert werden
@@ -1108,7 +1108,7 @@ int getchar(void) { ... }
 
 
 -----------------------------------------------------
-# Funktionen und Programmstruktur (14)
+# Funktionen und Programmstruktur (15)
 ### Präprozessor (4)
 
 * Konditionelles Einbinden
@@ -1123,7 +1123,7 @@ int getchar(void) { ... }
 oder
 
 <pre>
-#elif SYSTEM == BSD 
+#if SYSTEM == BSD 
   #define HDR "bsd.h"
 #elif SYSTEM == WIN32 
   #define HDR "win32.h"
@@ -1142,9 +1142,9 @@ oder
  * eine Variable und enthält Adresse einer anderen Variable
  * eine Gruppe aus Speicherzellen
 * Es ist möglich _unverständlichen_ Code mit exzessivem Nutzen von Zeigern zu schreiben
- * Mit Disziplin jedoch werden Programme conciser und werden einfacher
+ * Mit Disziplin jedoch werden Programme konziser und einfacher
 
-Beispiel: _c_ ist ein 'char' und p zeigt darauf 
+Beispiel: _c_ ist ein 'char' und _p_ zeigt darauf 
 
 ![](images/pointer_1.jpg)
 
@@ -1187,7 +1187,8 @@ Wenn ip auf einen Integer x zeigt, dann kann *ip an jeder Stelle vorkommen an de
 y = *ip + 1;
 *ip += 1;
 ++*ip;
-(*ip)++; // Parantheses are needed. Otherwise the pointer would be increased, not the value behind it's variable.
+(*ip)++; // Parentheses are needed. Otherwise the pointer would be increased,
+         // not the value behind it's variable.
 </pre>
 
 * Da Zeiger Variable sind, können sie auch ohne Dereferenzierung genutzt werden. 
@@ -1200,7 +1201,7 @@ iq = ip;
 -----------------------------------------------------
 # Zeiger und Arrays (4)
 
-* Zeiger und Arrays eng miteinander verwandt
+* Zeiger und Arrays miteinander sind eng verwandt
  * Jede Array-Operation kann auch als Zeiger Operation umgesetzt werden
  * Die Zeiger Variante ist in der Regel schneller, aber für Anfänger schwerer zu verstehen
 
@@ -1265,7 +1266,7 @@ a++;
 # Zeiger und Arrays (7)
 
 * Wenn Array als Funktionsparameter übergeben wird, wird die Adresse des ersten Elements übergeben
- * Innerhalb der Funktion ist der Zeiger eine locale Variable
+ * Innerhalb der Funktion ist der Zeiger eine lokale Variable
 <pre>
 /* strlen: return length of string s */ 
 int strlen(char *s) {
@@ -1277,8 +1278,8 @@ int strlen(char *s) {
 </pre>
 strlen.c
 
-* Da 's' ein Zeiger ist, kann er Seiteneffekt inkrementiert werden
-Diese Aufrufe funktionieren alle:
+* Da 's' ein Zeiger ist, kann er ohne Seiteneffekt inkrementiert werden.
+* Diese Aufrufe funktionieren alle:
 <pre>
 strlen("hello, world"); /* string constant */
 strlen(array); /* char array[100]; */
@@ -1289,7 +1290,7 @@ strlen(ptr); /* char *ptr; */
 # Zeiger und Arrays (8)
 
 * Als formale Parameter sind 'char s[];' und 'char *s;' äquivalent
- * 'char *s;' zeigt allerdings klarer, dass Variable ein Zeiger ist
+ * 'char *s;' zeigt allerdings klarer, dass die Variable ein Zeiger ist
 * Möglich ist nur Teile eines Arrays als Funktionsparameter zu übergeben
  * 'f(a+2)' oder 'f(&a[2])'
  * Die gerufene Funktion weiss nicht, dass es sich nur um einen Teil handelt
@@ -1348,8 +1349,130 @@ Wer sieht das Usability Problem dieser Implementierung?
 * Zeiger können addiert oder subtrahiert weden
  * 'p + n' bedeutet die Adresse des n-ten Objects von 'p' aus gesehen
 
+-----------------------------------------------------
+# Zeiger und Arrays (13)
+#### strlen mit Zeiger Arithmetik
+
+<pre>
+/* strlen: return length of string s */ 
+int strlen(char *s) {
+  char *p = s;
+  while (*p != '\0') 
+    p++;
+  return p - s;
+}
+</pre>
+strlen\_pointer.c
 
 
+
+-----------------------------------------------------
+# Zeiger und Arrays (14)
+#### Char Zeiger und Funktionen (1)
+
+* String Konstante: "Ich bin ein String"
+ * '\0' terminiert
+ * müssen kein Funktionsargument sein
+
+<pre>
+char *pmessage;
+// assigns to pmessage a pointer to the existing character array. 
+// _NO_ string copy, only pointers.
+pmessage = "now is the time";
+</pre>
+
+
+-----------------------------------------------------
+# Zeiger und Arrays (15)
+#### Char Zeiger und Funktionen (2)
+#### Wichtiger Unterschied
+
+<pre>
+char amessage[] = "now is the time"; /* an array */ 
+char *pmessage = "now is the time"; /* a pointer */
+</pre>
+
+![](images/pointer_2.jpg)
+
+
+-----------------------------------------------------
+# Zeiger und Arrays (16)
+#### Char Zeiger und Funktionen (3)
+#### strlen (1)
+
+Mit Arrays:
+<pre>
+/* strcpy: copy t to s; array subscript version */ 
+void strcpy(char *s, char *t) {
+  int i;
+  i = 0; 
+  while ((s[i] = t[i]) != '\0')
+    i++;
+}
+</pre>
+
+Mit Zeigern (Achtung: Argumente via 'Call by Value')
+<pre>
+/* strcpy: copy t to s; pointer version */ 
+void strcpy(char *s, char *t) {
+  int i;
+  i = 0; 
+  while ((*s = *t) != '\0') {
+    s++; t++;
+  }
+}
+</pre>
+
+
+-----------------------------------------------------
+# Zeiger und Arrays (17)
+#### Char Zeiger und Funktionen (4)
+#### strlen (2)
+
+Kürzer:
+<pre>
+/* strcpy: copy t to s; pointer version 2 */ 
+void strcpy(char *s, char *t) {
+  while ((*s++ = *t++) != '\0') 
+    ;
+}
+</pre>
+
+Noch kürzer:
+<pre>
+/* strcpy: copy t to s; pointer version 3 */ 
+void strcpy(char *s, char *t) {
+  while (*s++ = *t++) 
+    ;
+}
+</pre>
+
+-----------------------------------------------------
+# Zeiger und Arrays (18)
+#### Zeiger Arrays, Zeiger auf Zeiger
+
+* Zeiger sind nur Variable -> sie können auch in Arrays gespeichert werden
+* Damit wird etwa sehr effizientes sortieren von Strings möglich:
+
+ ![](images/pointer_3.jpg)
+
+* Auch mehrdimensionale Arrays sind möglich
+<pre>
+static char daytab[2][13] = { 
+  {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}, 
+  {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+};
+</pre>
+
+-----------------------------------------------------
+# Zeiger und Arrays (18)
+
+
+
+
+
+
+ENDE
 
 
 
