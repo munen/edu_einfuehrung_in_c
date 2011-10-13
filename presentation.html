@@ -772,7 +772,6 @@ For Syntax:
 ####'Infinite Loop'
 
 * kann durch 'break' oder 'return' beendet werden
-* garantiert die Ausführung der Ausdrücke von links nach rechts
 <pre>
    for (;;) {}
 </pre>
@@ -783,6 +782,7 @@ For Syntax:
 
 * meist genutzt in 'for' Schleifen
  * sind insgesamt aber selten zu finden
+* garantiert die Ausführung der Ausdrücke von links nach rechts
 
 <pre>
 #include <string.h>
@@ -831,6 +831,8 @@ for (i = 0; i < n; i++)
   ... /* do positive elements */
 </pre>
 
+ * Demo continue.c
+
 
 -----------------------------------------------------
 # Kontrollfluss (11)
@@ -855,6 +857,8 @@ for (...)
 ...
 error: /* clean up the mess */
 </pre>
+
+* Demo goto.c
 
 -----------------------------------------------------
 # Kontrollfluss (12)
