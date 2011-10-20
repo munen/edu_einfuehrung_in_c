@@ -979,6 +979,16 @@ static\_local\_var.c
 
 
 -----------------------------------------------------
+# Exkurs 'Was macht der Computer während man wartet' #1
+![](images/latency_and_throughput.png)
+
+-----------------------------------------------------
+# Exkurs 'Was macht der Computer während man wartet' #2
+
+Latenz verschiedener Medien in Nanosekunden
+![](images/latency_storage.gif)
+
+-----------------------------------------------------
 # Funktionen und Programmstruktur (7)
 ### Register Variablen
 
@@ -990,6 +1000,8 @@ static\_local\_var.c
 * Restriktionen durch unterliegende Hardware
 * Zu ausschweifende Nutzung harmlos (Compileroptimierung)
 * Addressauslesen eines Registers nicht möglich
+* Spoiler: Moderne Compiler können Code besser als der Programmierer optimieren
+  * Lese: 'register' nur selten nutzbar (etwa embedded Bereich)
 
 <pre>
 register int x; register char c;
@@ -1138,6 +1150,55 @@ oder
 </pre>
 
 * Spezielle Kurzformen '#ifdef' und '#ifndef'
+
+-----------------------------------------------------
+# Exkurs BNF
+
+BNF ist eine formale Sprache zur Darstellung von Grammatiken.
+Syntax von Programmiersprachen lässt sich so definieren.
+
+      <translation-unit> ::= {<external-declaration>}*
+
+      <external-declaration> ::= <function-definition>
+                               | <declaration>
+
+      <function-definition> ::= {<declaration-specifier>}* 
+                                <declarator> {<declaration>}* 
+                                <compound-statement>
+
+      <declaration-specifier> ::= <storage-class-specifier>
+                                | <type-specifier>
+                                | <type-qualifier>
+
+      <storage-class-specifier> ::= auto
+                                  | register
+                                  | static
+                                  | extern
+                                  | typedef
+
+[Komplette C Syntax in BNF](http://bit.ly/mT8e8q)
+
+-----------------------------------------------------
+# Exkurs Schlüsselwort 'volatile' (deutsch: flüchtig)
+
+ * In Java: Jeder Thread wird die Variable lesen bevor er arbeitet und keine cached Values verwenden (ähnlich Mutex).
+ * In C: Zwinge den Kompiler dazu keine Optimierungen vorzunehmen
+
+Ohne _volatile_ wird
+<pre>
+static int foo;
+void bar(void) {
+    foo = 0;
+    while (foo != 255) ; }
+</pre>
+zu
+<pre>
+void bar_optimized(void) {
+    foo = 0;
+    while (true) ; }
+</pre>
+
+Grund: _foo_ wird sich nicht ändern. Ausser _foo_ ist verbunden mit einem Register (siehe Memory-mapped I/O (MMIO).
 
 -----------------------------------------------------
 # Zeiger und Arrays (1)
