@@ -977,6 +977,43 @@ int foo(int n) {
 </pre>
 static\_local\_var.c 
 
+-----------------------------------------------------
+# Exkurs BNF
+
+BNF ist eine formale Sprache zur Darstellung von Grammatiken.
+
+Syntax von Programmiersprachen lässt sich so definieren.
+
+      <Post-Anschrift>  ::= <Personenteil> <Straße> <Stadt>
+      <Personenteil>    ::= <Titelteil> <Namensteil> <EOL>
+      <Titelteil>       ::= <Titel> |
+      <Vornamenteil>    ::= <Vorname> | <Initial> . 
+      <Namensteil>      ::= <Vornamenteil> <Nachname> | <Vornamenteil> <Namensteil>
+      <Straße>          ::= <Straßenname> <Hausnummer> <EOL>
+      <Stadt>           ::= <Postleitzahl> <Stadtname> <EOL>
+[Komplette C Syntax in BNF](http://bit.ly/mT8e8q)
+
+-----------------------------------------------------
+# Exkurs Schlüsselwort 'volatile' (deutsch: flüchtig)
+
+ * In Java: Jeder Thread wird die Variable lesen bevor er arbeitet und keine cached Values verwenden (ähnlich Mutex).
+ * In C: Zwinge den Kompiler dazu keine Optimierungen vorzunehmen
+
+Ohne _volatile_ wird
+<pre>
+static int foo;
+void bar(void) {
+    foo = 0;
+    while (foo != 255) ; }
+</pre>
+zu
+<pre>
+void bar_optimized(void) {
+    foo = 0;
+    while (true) ; }
+</pre>
+
+Grund: _foo_ wird sich nicht ändern. Ausser _foo_ ist verbunden mit einem Register (siehe Memory-mapped I/O (MMIO).
 
 -----------------------------------------------------
 # Exkurs 'Was macht der Computer während man wartet' #1
@@ -1151,54 +1188,6 @@ oder
 
 * Spezielle Kurzformen '#ifdef' und '#ifndef'
 
------------------------------------------------------
-# Exkurs BNF
-
-BNF ist eine formale Sprache zur Darstellung von Grammatiken.
-Syntax von Programmiersprachen lässt sich so definieren.
-
-      <translation-unit> ::= {<external-declaration>}*
-
-      <external-declaration> ::= <function-definition>
-                               | <declaration>
-
-      <function-definition> ::= {<declaration-specifier>}* 
-                                <declarator> {<declaration>}* 
-                                <compound-statement>
-
-      <declaration-specifier> ::= <storage-class-specifier>
-                                | <type-specifier>
-                                | <type-qualifier>
-
-      <storage-class-specifier> ::= auto
-                                  | register
-                                  | static
-                                  | extern
-                                  | typedef
-
-[Komplette C Syntax in BNF](http://bit.ly/mT8e8q)
-
------------------------------------------------------
-# Exkurs Schlüsselwort 'volatile' (deutsch: flüchtig)
-
- * In Java: Jeder Thread wird die Variable lesen bevor er arbeitet und keine cached Values verwenden (ähnlich Mutex).
- * In C: Zwinge den Kompiler dazu keine Optimierungen vorzunehmen
-
-Ohne _volatile_ wird
-<pre>
-static int foo;
-void bar(void) {
-    foo = 0;
-    while (foo != 255) ; }
-</pre>
-zu
-<pre>
-void bar_optimized(void) {
-    foo = 0;
-    while (true) ; }
-</pre>
-
-Grund: _foo_ wird sich nicht ändern. Ausser _foo_ ist verbunden mit einem Register (siehe Memory-mapped I/O (MMIO).
 
 -----------------------------------------------------
 # Zeiger und Arrays (1)
