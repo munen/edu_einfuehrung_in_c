@@ -6,8 +6,6 @@ struct c_stack {
 } stack;
 
 
-
-
 // returns 0 on stack overflow
 char push(char c);
 // returns 0 on stack underflow

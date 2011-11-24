@@ -2,23 +2,32 @@
 #include "int_stack.h"
 
 int main(void) {
+  char line[100];
   int x, y;
-  char c;
-  while((c = getchar()) != 'q') {
-    if(c == '\n')
-      continue;
 
-    if(c == '+')
+  do {
+    fgets(line, sizeof(line), stdin);
+
+    if(!strcmp(line, "+\n"))
         push(pop() + pop());
-    if(c == '-')
-        push(pop() - pop());
-    if(c == '*')
+    else if(!strcmp(line, "-\n")) {
+        x = pop();
+        y = pop();
+        push(y - x);
+    }
+    else if(!strcmp(line, "*\n"))
         push(pop() * pop());
-    if(c == '/')
-        push(pop() / pop());
-    if(c == '=')
-      printf("Ergebnis: %d\n", pop());
-    if(c>='0' && c<='9')
-        push(c - '0');
-  }
+    else if(!strcmp(line, "/\n")) {
+        x = pop();
+        y = pop();
+        push(y / x);
+    }
+    else if(!strcmp(line, "=\n")) {
+      printf("Ergebnis: %d\n", peek());
+    }
+    else {
+      sscanf(line, "%d", &x);
+      push(x);
+    }
+  } while(strcmp(line, "quit\n"));
 }

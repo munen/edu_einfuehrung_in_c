@@ -1,5 +1,6 @@
 #include "stack.h"
 
+
 char push(char c) {
   if(stack.size == STACKSIZE)
     return 0;

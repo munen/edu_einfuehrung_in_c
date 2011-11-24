@@ -1,17 +1,10 @@
-int main(void) {
-  char buf[100000000000];
+#include <stdio.h>
 
-  char *begin;
-  char *current_position;
-
-  begin = buf;
-
-
+int fib(int n) {
+  return (n < 2) ? n : fib(n-1) + fib(n-2);
 }
 
-
-int *alloc(n) {
-}
-
-int *free(n) {
+int main(int argc, char *argv[]) {
+  int num = atoi(argv[1]);
+  printf("%d\n", fib(num));
 }

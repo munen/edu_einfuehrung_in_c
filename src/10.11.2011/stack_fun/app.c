@@ -5,11 +5,6 @@
 
 // Just putting stuff in and out
 void pushing_and_popping() {
-  int i;
-  for(i = 65; i<=75; i++)
-    push(i);
-  for(i = 75; i>65; i--)
-    printf("stuff: %c\n", pop());
 }
 
 // Actual checking function
@@ -33,7 +28,7 @@ int correct_parantheses(char *parantheses) {
 void checking_parantheses() {
   char input[100];
 
-    fgets(input, 100, stdin);
+  fgets(input, 100, stdin);
   while(strcmp(input, "q\n")) {
 
     if(correct_parantheses(input))
@@ -45,6 +40,14 @@ void checking_parantheses() {
 }
 
 
+
+
+
+
 int main(void) {
-  checking_parantheses();
+  int i;
+  for(i = 65; i<=75; i++)
+    push(i);
+  for(i = 75; i>65; i--)
+    printf("stuff: %c\n", pop());
 }

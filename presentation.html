@@ -4,15 +4,12 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>My Slides</title>
     <link rel="stylesheet" type="text/css" media="screen, projection, print" href="slidy.css" />
-    <link rel="stylesheet" type="text/css" media="screen, projection, print" href="style.css" />
-    <link rel="stylesheet" type="text/css" media="screen, projection, print" href="twitter_bootstrap.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="stylesheet" type="text/css" media="screen, print" href="twitter_bootstrap.css" />
     <script src="showdown.js"></script>
     <script src="slidy.js"></script>
     <script src="jquery-syntax/jquery-1.4.4.min.js" type="text/javascript"></script>
     <script src="jquery-syntax/jquery.syntax.min.js" type="text/javascript"></script>
-
-
-
 </head>
 <body>
 
@@ -988,9 +985,9 @@ static\_local\_var.c
 -----------------------------------------------------
 # Exkurs BNF
 
-BNF ist eine formale Sprache zur Darstellung von Grammatiken.
+###BNF ist eine formale Sprache zur Darstellung von Grammatiken.
 
-Syntax von Programmiersprachen lässt sich so definieren.
+###Syntax von Programmiersprachen lässt sich so definieren.
 
       <Post-Anschrift>  ::= <Personenteil> <Straße> <Stadt>
       <Personenteil>    ::= <Titelteil> <Namensteil> <EOL>
@@ -1391,6 +1388,7 @@ void afree(char *p) /* free storage pointed to by p */
     allocp = p;
 }
 </pre>
+storage\_management.c
 
 -----------------------------------------------------
 # Zeiger und Arrays (11)
@@ -1455,6 +1453,212 @@ char *pmessage = "now is the time"; /* a pointer */
 </pre>
 
 ![](images/pointer_2.jpg)
+
+-----------------------------------------------------
+# Strukturen (1)
+
+* eine Stuktur ist eine Sammlung einer oder mehrerer Variable
+* können von unterschiedlichen Datentypen sein
+* gruppiert unter einem neuen eindeutigen Namen
+  * einfacherer Handhabe
+
+## Beispiel Koordinatendarstellung
+
+![](images/coordinates.jpg)
+
+-----------------------------------------------------
+# Strukturen (2)
+
+* Die zwei Komponenten werden in einer Struktur definiert
+<pre class="syntax c">
+struct point {
+  int x;
+  int y;
+};
+</pre>
+
+* Ein _struct_ definiert einen neuen Datentyp
+
+<pre class="syntax c">
+// Syntaktlisch analog zu: int x;
+struct point pt;
+</pre>
+
+* Ein Mitglied einer Struktur ist wie folgt zu erreichen via
+<pre class="syntax c">
+struct_name.member_name;
+</pre>
+
+-----------------------------------------------------
+# Stacks (1)
+
+* zu Deutsch: Kellerspeicher/Stapelspeicher
+* häufig genutzte Datenstruktur
+ * wird von den meisten Mikroprozessoren direkt unterstützt
+
+## Funktion
+
+* Kann theoretisch beliebige Objekte aufnehmen
+* Elemente können auf Stapel gelegt und von oben wieder gelesen werden
+
+## Operationen
+
+* push - legt ein Element auf den Stapel
+* pop - entfernt das oberste Element vom Stapel und gibt es zurueck
+* peek - liesst das oberste Element vom Stapel ohne es zu entfernen
+
+
+-----------------------------------------------------
+# Stacks (2)
+![](images/stack.png)
+
+-----------------------------------------------------
+# Stacks (3)
+## Minimale Implementierung
+## Interface
+<pre class="syntax c">
+#define STACKSIZE 10
+
+struct c_stack {
+  char data[STACKSIZE];
+  int size;
+} stack;
+
+// returns 0 on stack overflow
+char push(char c);
+// returns 0 on stack underflow
+char pop();
+// returns 0 on stack underflow
+char peek();
+</pre>
+stack.h
+
+-----------------------------------------------------
+# Stacks (4)
+
+## Code workshop
+## Stack Implementierung
+
+-----------------------------------------------------
+# Stacks (5)
+<pre class="syntax c">
+#include "stack.h"
+
+char push(char c) {
+  if(stack.size == STACKSIZE)
+    return 0;
+  return stack.data[stack.size++] = c;
+}
+
+char pop() {
+  if(stack.size == 0)
+    return 0;
+  return stack.data[--stack.size];
+}
+
+char peek() {
+  if(stack.size == 0)
+    return 0;
+  return stack.data[stack.size-1];
+}
+</pre>
+stack.c
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 1
+
+* Bekannt ist Infix: 5 + 2
+ * Operator ist zwischen Operanden
+* Problem: Präzedenz
+ * Coding Challenge: Klammerproblem!
+* Vorteile UPN
+ * Weniger Zeichen notwendig
+ * Möglich stets ein Zwischenergebnis anzuzeigen
+
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 2
+
+## Rechnung mit Infix Notation
+* (1+2) * (3+4)
+
+## Rechnung mit Postfix Notation
+* 1 2 + 3 4 + *
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 3
+## Coding Challenge: Klammerproblem!
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 4
+<pre class="syntax c">
+int correct_parantheses(char *parantheses) {
+  char *s = parantheses;
+  char c;
+  while((c = *s++) != '\n') {
+    if(c == '(')
+      push(c);
+    else {
+      if(peek() == '(')
+        pop();
+      else
+        push(c);
+    }
+  }
+  return pop() == 0;
+}
+</pre>
+
+-----------------------------------------------------
+# Neuer Datentyp: Lineare Listen
+
+## Einfache verkettete Liste
+ ![](images/linked_list.jpg)
+
+## Zirkulär verkettete Liste
+ ![](images/linked_list_circular.jpg)
+
+## Doppelt verkettete Liste
+ ![](images/linked_list_double.jpg)
+
+-----------------------------------------------------
+# Verkettete Listen vs. Arrays
+* Unterschiedliche Performanz für unterschiedliche Workloads
+  * Listen wachsen organisch
+  * Arrays haben fixe Grösse
+  * Listen sortieren bedeutet nur Zeiger umbiegen
+   * Listen können an jeder Stelle günstig erweitert werden
+  * Array sortieren bedeutet im Zweifel mehr Aufwand
+  * Listen tragen Nutzlasten unterschiedlicher Grösse
+  * Listen haben Zugriffszeit O(n)
+  * Arrays haben _sehr_ schnelle Zugriffszeiten O(1)
+  * Arrays sind auf den ersten Blick einfacher zu implementieren
+
+-----------------------------------------------------
+# Java ArrayList vs. Vector vs. LinkedList
+* ArrayList und Vector sind beides Arrays
+ * Vector stammt aus Java 1.0 und ist quasi obsolet
+* LinkedList ist eine echte verkettete Liste
+  * nicht synchronisiert von Haus aus
+
+
+-----------------------------------------------------
+# Coding Challenge: Lineare Liste!
+
+-----------------------------------------------------
+# Coding Challenge: Stack mit linearer Listen!
+
+<pre class="syntax java">
+ List list = Collections.synchronizedList(new LinkedList(...));
+</pre>
+
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 5
+## Coding Challenge!
+
+## Rechner mit Grundrechenfunktionen
+
 
 
 -----------------------------------------------------
@@ -1662,7 +1866,7 @@ wait.c
         for (var j = 0; j < slides.length; j++)
             document.write('<div class=slide>' + slides[j] + '</div>');
   });
-  $(".presentation").hide();
+  $(".presentation").remove();
   w3c_slidy.add_listener(document.body, "touchend", w3c_slidy.mouse_button_click);
   $.syntax();
 </script>
