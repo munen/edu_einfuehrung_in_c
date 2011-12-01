@@ -1660,11 +1660,59 @@ int correct_parantheses(char *parantheses) {
 ## Rechner mit Grundrechenfunktionen
 
 
+-----------------------------------------------------
+# Lineare Liste 1
+
+<pre class="syntax C">
+struct linked_list {
+  int data;
+  struct linked_list *next;
+};
+
+typedef struct linked_list item;
+</pre>
+
+&nbsp;<br/>
+
+* Anders als bei Stack mit Arrays wird nur ein Item gespeichert
+* Da Gesamtgrösse zur Compilierzeit unbekannt muss Speicher zur Laufzeit alloziert werden
+
+
+-----------------------------------------------------
+# Lineare Liste 2
+## Speicher allozieren
+
+* Laut 'man 3 malloc':
+
+<pre>
+"The malloc() function allocates size bytes of memory and returns a pointer to the allocated memory."
+</pre>
+
+* Vor Gebrauch
+
+<pre class="syntax C">
+cur = (item *)malloc(sizeof(item));
+</pre>
+
+&nbsp;<br/>
+## Speicher freigeben
+
+* Wenn nicht mehr benötigt
+<pre class="syntax C">
+free(cur)
+</pre>
+
+
+&nbsp;<br/>
+## Demo linked_list.c
+
+
+
 
 -----------------------------------------------------
 # Zeiger und Arrays (16)
 #### Char Zeiger und Funktionen (3)
-#### strlen (1)
+#### strcpy (1)
 
 Mit Arrays:
 <pre class="syntax c">
@@ -1681,8 +1729,6 @@ Mit Zeigern (Achtung: Argumente via 'Call by Value')
 <pre class="syntax c">
 /* strcpy: copy t to s; pointer version */
 void strcpy(char *s, char *t) {
-  int i;
-  i = 0;
   while ((*s = *t) != '\0') {
     s++; t++;
   }
@@ -1693,7 +1739,7 @@ void strcpy(char *s, char *t) {
 -----------------------------------------------------
 # Zeiger und Arrays (17)
 #### Char Zeiger und Funktionen (4)
-#### strlen (2)
+#### strcpy (2)
 
 Kürzer:
 <pre class="syntax c">
