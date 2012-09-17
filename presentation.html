@@ -1429,9 +1429,21 @@ strlen(ptr); /* char *ptr; */
 #### Navive Implementierung von malloc/free (1)
  ![](images/storage_management_1.jpg)
 
+
 -----------------------------------------------------
 # Zeiger und Arrays (10)
 ### Adress Arithmetik (2)
+
+* Zeiger können unter Umständen miteinander verglichen werden
+ * ==, !=, <, >=, etc
+* 'p < q' ist wahr wenn
+ * 'p' auf ein früheres Element im gleichen Array zeigt als 'q'
+* Zeiger können addiert oder subtrahiert weden
+ * 'p + n' bedeutet die Adresse des n-ten Objects von 'p' aus gesehen
+
+-----------------------------------------------------
+# Zeiger und Arrays (11)
+### Adress Arithmetik (3)
 #### Naive Implementierung von malloc/free (2)
 <pre class="syntax c">
 #define ALLOCSIZE 10000 /* size of available space */
@@ -1452,6 +1464,7 @@ char *alloc(int n) /* return pointer to n characters */
 
 void afree(char *p) /* free storage pointed to by p */
 {
+  // check wheter p is in range of allocbuf
   if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
     allocp = p;
 }
@@ -1459,23 +1472,11 @@ void afree(char *p) /* free storage pointed to by p */
 storage\_management.c
 
 -----------------------------------------------------
-# Zeiger und Arrays (11)
-## Adress Arithmetik (3)
+# Zeiger und Arrays (12)
+## Adress Arithmetik (4)
 
 * Naive Implementierung von malloc/free (3)
 * Wer sieht das Usability Problem dieser Implementierung?
-
-
------------------------------------------------------
-# Zeiger und Arrays (12)
-### Adress Arithmetik (4)
-
-* Zeiger können unter Umständen miteinander verglichen werden
- * ==, !=, <, >=, etc
-* 'p < q' ist wahr wenn
- * 'p' auf ein früheres Element im gleichen Array zeigt als 'q'
-* Zeiger können addiert oder subtrahiert weden
- * 'p + n' bedeutet die Adresse des n-ten Objects von 'p' aus gesehen
 
 -----------------------------------------------------
 # Zeiger und Arrays (13)
