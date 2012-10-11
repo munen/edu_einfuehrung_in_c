@@ -26,14 +26,14 @@
 * E-Mail: aml@panter.ch
 * Kurs ist _fakultativ_
 * Folien und Code
- * http://edu.panter.ch/BetriebssystemeFh2012
+ * http://moodle.zhaw.ch
 * Literatur: Kernighan & Ritchie - The C Programming language
 
 ### Berufserfahrung
 
 * 1 Jahr Campus Ambassador - Sun Microsystems
 * 3 Jahre Python, Ruby, (C#) - Swiss Post Solutions AG
-* 2 Jahr Ruby on Rails - Panter LLC
+* 2 Jahre Ruby on Rails - Panter AG
 * 1 Jahr HSZ-T/ZHAW (C, Webprogrammieren)
 
 
@@ -162,6 +162,7 @@ fahrenheit2celsius.c
 # Exkurs Datentypen
 * Grösse der Datentypen ist abhängig von der Platform (limits.h)
  * Bsp OSX: /usr/include/i386/limits.h
+ * Demo: limits.c
 <table border="3">
  <tr>
    <td>
@@ -280,6 +281,7 @@ int main() {
 -----------------------------------------------------
 # Ein- und Ausgabe(1)
 
+* Demo Unix Tool *word count* aka *wc*
 <pre class="syntax c">
 #include &lt;stdio.h&gt;
 /* count characters in input; 1st version */
@@ -351,6 +353,8 @@ line\_counting.c
 -----------------------------------------------------
 # Arrays(1)
 # Häufigkeitszählung von Ziffern(1)
+
+ * Neu: Arrays
 
 <pre class="syntax c">
 #include &lt;stdio.h&gt;
@@ -448,7 +452,7 @@ functions\_1.c
 ### Speziell in C
 
  * Funktionen können in beliebiger Reihenfolge deklariert und definiert werden
-  * in einem oder mehreren Quelldateien
+  * in einer oder mehreren Quelldateien
  * Variablen einer Funktion sind nur lokal sichtbar
  * **return** ist an jeder Stelle erlaubt
   * auch in main
@@ -461,7 +465,7 @@ functions\_1.c
 
  * Call by value vs. Call by reference
  * Beispiel: Siehe power() in functions\_1.c
-  * n ist eine temporaere Variable
+  * n ist eine temporäre Variable
  * Ausnahme: Arrays
   * Adresse zum Array wird übergeben
 
@@ -535,8 +539,8 @@ strings.c
 
 ### Relational und Logisch
 
- * > >= < <=
- * == !=
+ * >, >=, <, <=
+ * ==, !=
 
 -----------------------------------------------------
 # Datentypen Konversion
@@ -567,23 +571,29 @@ printf("%f\n", ((float)x/y));
 x << 2
 </pre>
 
-* Ist äquivalent zu 2^2, da der Wert von x um zwei Positionen verschoben wird.
+* Ist äquivalent zu 2^3, da der Wert von x um zwei Positionen verschoben wird.
+
+
+## Trivia Questions
+
+ * 1 & 2
+ * 1 | 2
 
 -----------------------------------------------------
 # Bedingte Ausdrücke
 
 <pre class="syntax c">
 if (a > b)
-  z = a;
+  max = a;
 else
-  z = b;
+  max = b;
 </pre>
 ## Errechnet das Maximum von a und b.
 
 ###Kürzer:
 
 <pre class="syntax c">
-z = ( a > b ) ? a : b;
+max = ( a > b ) ? a : b;
 </pre>
 
 ###Allgemein:
@@ -596,6 +606,9 @@ expr1 ? expr2 : expr3
 -----------------------------------------------------
 # Tools
 ### Make(1)
+
+* Make ist ein Werkzeug, welches das Erzeugen von ausführbaren und anderen
+nicht-quell-Dateien, ermöglicht
 
 <pre class="syntax">
 GCC=/usr/bin/gcc
@@ -630,11 +643,6 @@ Prinzip:
 -----------------------------------------------------
 # Konstanten (1)
 
- * Integer Konstante: 123456
- * Long Konstante: 123456L
-   * Demo Überläufe
- * Unsigned Konstante: 123456u
- * Unsigned Long Konstante: 123456ul
  * Notationen
    * Oktal: 0123456 (führende Null)
    * Hexadezimal: 0x123456
@@ -860,6 +868,8 @@ for (;;) {}
 * meist genutzt in 'for' Schleifen
  * sind insgesamt aber selten zu finden
 * garantiert die Ausführung der Ausdrücke von links nach rechts
+  1. evaluiert den linken Ausdruck, verwirft das Ergebnis
+  1. evaluiert den rechten Ausdruck, gibt das Ergebnis zurück
 
 <pre class="syntax c">
 #include &lt;string.h&gt;
@@ -1443,6 +1453,9 @@ strlen(ptr); /* char *ptr; */
 
 -----------------------------------------------------
 # Zeiger und Arrays (11)
+
+* Demo: calloc_demo.c
+
 ### Adress Arithmetik (3)
 #### Naive Implementierung von malloc/free (2)
 <pre class="syntax c">
@@ -1633,12 +1646,16 @@ char peek() {
 stack.c
 
 -----------------------------------------------------
+# Demo
+
+ * Kompiliere Stack Bibliothek
+
+-----------------------------------------------------
 # Umgekehrte Polnische Notation (UPN) 1
 
 * Bekannt ist Infix: 5 + 2
  * Operator ist zwischen Operanden
 * Problem: Präzedenz
- * Coding Challenge: Klammerproblem!
 * Vorteile UPN
  * Weniger Zeichen notwendig
  * Möglich stets ein Zwischenergebnis anzuzeigen
@@ -1648,7 +1665,7 @@ stack.c
 # Umgekehrte Polnische Notation (UPN) 2
 
 ## Rechnung mit Infix Notation
-* (1+2) * (3+4)
+* ( 1 + 2 ) * ( 3 + 4 )
 
 ## Rechnung mit Postfix Notation
 * 1 2 + 3 4 + *
@@ -1678,6 +1695,19 @@ int correct_parantheses(char *parantheses) {
 </pre>
 
 -----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 5
+
+ * Wer sieht das Problem in der Implementierung?
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 5
+
+ * Implementierung ist nicht idempotent
+ * Falls Stack nicht leer gibt es Side-Effects beim nächsten Aufruf
+  * => Am Ende clean data herstellen!
+
+
+-----------------------------------------------------
 # Neuer Datentyp: Lineare Listen
 
 ## Einfache verkettete Liste
@@ -1704,6 +1734,8 @@ int correct_parantheses(char *parantheses) {
 
 -----------------------------------------------------
 # Java ArrayList vs. Vector vs. LinkedList
+
+* Sehen vom Interface her _sehr_ ähnlich aus
 * ArrayList und Vector sind beides Arrays
  * Vector stammt aus Java 1.0 und ist quasi obsolet
 * LinkedList ist eine echte verkettete Liste
@@ -1712,21 +1744,6 @@ int correct_parantheses(char *parantheses) {
 
 -----------------------------------------------------
 # Coding Challenge: Lineare Liste!
-
------------------------------------------------------
-# Coding Challenge: Stack mit linearer Listen!
-
-<pre class="syntax java">
- List list = Collections.synchronizedList(new LinkedList(...));
-</pre>
-
-
------------------------------------------------------
-# Umgekehrte Polnische Notation (UPN) 5
-## Coding Challenge!
-
-## Rechner mit Grundrechenfunktionen
-
 
 -----------------------------------------------------
 # Lineare Liste 1
@@ -1774,15 +1791,24 @@ free(cur)
 &nbsp;<br/>
 ## Demo linked_list.c
 
+-----------------------------------------------------
+# Coding Challenge: Stack mit linearer Listen!
+
+-----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 5
+## Coding Challenge!
+
+## Rechner mit Grundrechenfunktionen
+
 
 
 
 -----------------------------------------------------
 # Zeiger und Arrays (16)
-#### Char Zeiger und Funktionen (3)
-#### strcpy (1)
+## Char Zeiger und Funktionen (3)
+### strcpy (1)
 
-Mit Arrays:
+#### Mit Arrays:
 <pre class="syntax c">
 /* strcpy: copy t to s; array subscript version */
 void strcpy(char *s, char *t) {
@@ -1793,7 +1819,7 @@ void strcpy(char *s, char *t) {
 }
 </pre>
 
-Mit Zeigern (Achtung: Argumente via 'Call by Value')
+#### Mit Zeigern (Achtung: Argumente via 'Call by Value')
 <pre class="syntax c">
 /* strcpy: copy t to s; pointer version */
 void strcpy(char *s, char *t) {
@@ -1806,10 +1832,10 @@ void strcpy(char *s, char *t) {
 
 -----------------------------------------------------
 # Zeiger und Arrays (17)
-#### Char Zeiger und Funktionen (4)
-#### strcpy (2)
+## Char Zeiger und Funktionen (4)
+### strcpy (2)
 
-Kürzer:
+#### Kürzer:
 <pre class="syntax c">
 /* strcpy: copy t to s; pointer version 2 */
 void strcpy(char *s, char *t) {
@@ -1818,7 +1844,7 @@ void strcpy(char *s, char *t) {
 }
 </pre>
 
-Noch kürzer:
+#### Noch kürzer:
 <pre class="syntax c">
 /* strcpy: copy t to s; pointer version 3 */
 void strcpy(char *s, char *t) {
@@ -1834,7 +1860,7 @@ void strcpy(char *s, char *t) {
 * Zeiger sind nur Variable -> sie können auch in Arrays gespeichert werden
 * Damit wird etwa sehr effizientes sortieren von Strings möglich:
 
- ![](images/pointer_3.jpg)
+![](images/pointer_3.jpg)
 
 * Auch mehrdimensionale Arrays sind möglich
 <pre class="syntax c">
