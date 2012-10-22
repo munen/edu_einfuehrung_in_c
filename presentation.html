@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<code class="presentation">
+<script type="p_slides" class="presentation">
 
 # Einführung in die Programmierung in C
 
@@ -579,66 +579,6 @@ x << 2
  * 1 & 2
  * 1 | 2
 
------------------------------------------------------
-# Bedingte Ausdrücke
-
-<pre class="syntax c">
-if (a > b)
-  max = a;
-else
-  max = b;
-</pre>
-## Errechnet das Maximum von a und b.
-
-###Kürzer:
-
-<pre class="syntax c">
-max = ( a > b ) ? a : b;
-</pre>
-
-###Allgemein:
-
-<pre class="syntax c">
-expr1 ? expr2 : expr3
-</pre>
-
-
------------------------------------------------------
-# Tools
-### Make(1)
-
-* Make ist ein Werkzeug, welches das Erzeugen von ausführbaren und anderen
-nicht-quell-Dateien, ermöglicht
-
-<pre class="syntax">
-GCC=/usr/bin/gcc
-
-test: foo.o
-        $(GCC) -o test foo.o bar.o
-
-foo.o: bar.o
-        $(GCC) -c foo.c
-
-bar.o:
-        $(GCC) -c bar.c
-
-clean:
-        rm -f test foo.o bar.o core
-</pre>
-Makefile
-
------------------------------------------------------
-# Tools
-### Make(2)
-
- * Automatisierung von Arbeitsschritten
- * Auflösen von Abhängigkeiten
- * Kompilieren
-
-Prinzip:
-
- * Definition von Targets und Abhängigkeiten
-  * Befehl um, das Target zu kompilieren
 
 -----------------------------------------------------
 # Konstanten (1)
@@ -712,6 +652,29 @@ definieren - eine gute Alternative zu #define.
 * Variablen in Blöcken und Funktionen können mit Ausdrücken initialisiert werden
 * Kennzeichner 'const' bei Deklaration für nicht änderbare Variableninhalte
 
+
+-----------------------------------------------------
+# Bedingte Ausdrücke
+
+<pre class="syntax c">
+if (a > b)
+  max = a;
+else
+  max = b;
+</pre>
+## Errechnet das Maximum von a und b.
+
+###Kürzer:
+
+<pre class="syntax c">
+max = ( a > b ) ? a : b;
+</pre>
+
+###Allgemein:
+
+<pre class="syntax c">
+expr1 ? expr2 : expr3
+</pre>
 
 -----------------------------------------------------
 # Kontrollfluss (1)
@@ -1014,6 +977,43 @@ else
   Zeit kompiliert werden
  * Mehrere Quelldateien
  * Binäre Bibliotheken
+
+-----------------------------------------------------
+# Tools
+### Make(1)
+
+* Make ist ein Werkzeug, welches das Erzeugen von ausführbaren und anderen
+nicht-quell-Dateien, ermöglicht
+
+<pre class="syntax">
+GCC=/usr/bin/gcc
+
+test: foo.o
+        $(GCC) -o test foo.o bar.o
+
+foo.o: bar.o
+        $(GCC) -c foo.c
+
+bar.o:
+        $(GCC) -c bar.c
+
+clean:
+        rm -f test foo.o bar.o core
+</pre>
+Makefile
+
+-----------------------------------------------------
+# Tools
+### Make(2)
+
+ * Automatisierung von Arbeitsschritten
+ * Auflösen von Abhängigkeiten
+ * Kompilieren
+
+Prinzip:
+
+ * Definition von Targets und Abhängigkeiten
+  * Befehl um, das Target zu kompilieren
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (4)
@@ -1872,7 +1872,7 @@ static char daytab[2][13] = {
 
 
 
-</code>
+</script>
 
 <script>
   $(".presentation").each(function() {
