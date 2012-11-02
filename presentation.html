@@ -1141,6 +1141,7 @@ register int x; register char c;
 * Automatische und 'register' Variable können mit Ausdrücken initialisiert werden
  * bereits definierte Variable
  * Funktionsaufrufe
+* Demo "extern\_keyword"
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (9)
@@ -1158,10 +1159,32 @@ int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (10)
-### Rekursion (1)
+## Rekursion (1)
 
 * Jeder Aufruf der Funktion erhält neue automatische Variable
+ * Wichtig: Es braucht eine Abbruchbedingung
+  * Sonst Endlosschleife
+  * Abbrechen via _return_
+* Beispiel: Countdown
+  * Demo "rec_demo.c"
 
+-----------------------------------------------------
+# Funktionen und Programmstruktur (10)
+## Rekursion (2)
+
+<pre class="syntax c">
+void countdown(int n) {
+  if(n <= 0)
+    return;
+  printf("%d\n", n);
+  countdown(n-1);
+}
+</pre>
+rec\_demo.c
+
+-----------------------------------------------------
+# Funktionen und Programmstruktur (10)
+## Rekursion (3)
 ###Code Workshop - jeder für sich:
 
 Fibonacci Funktion:
@@ -1170,7 +1193,7 @@ Fibonacci Funktion:
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (11)
-### Rekursion (2)
+## Rekursion (4)
 
 * Lösung in C
 <pre class="syntax c">
@@ -1186,6 +1209,15 @@ def fib(n)
 end
 </pre>
 
+-----------------------------------------------------
+# Funktionen und Programmstruktur (11)
+## Rekursion (5)
+
+* Neben Fibonacci ist FizzBuzz eine häufig verwandte Interviewer Frage, um einen Grossteil der Programmierer Kandidaten zu filtern
+
+<pre>
+"Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”."
+</pre>
 
 -----------------------------------------------------
 # Funktionen und Programmstruktur (12)
@@ -1435,6 +1467,22 @@ strlen(ptr); /* char *ptr; */
 
 -----------------------------------------------------
 # Zeiger und Arrays (9)
+## Speichermanagement
+
+* Speicher wird in C durch den Programmierer verwaltet
+ * Vergleiche Sprachen mit eingebauter "Garbage Collection"
+  * Java, Ruby, Python, ..
+* Vorteile
+ * Geschwindigkeit
+ * Im Optimalfall braucht Applikation weniger RAM
+* Nachteile
+ * Mehr Code
+ * Memory Leaks
+ * Komplexität
+* Demo: calloc_demo.c
+
+-----------------------------------------------------
+# Zeiger und Arrays (9)
 ### Adress Arithmetik (1)
 #### Navive Implementierung von malloc/free (1)
  ![](images/storage_management_1.jpg)
@@ -1451,10 +1499,9 @@ strlen(ptr); /* char *ptr; */
 * Zeiger können addiert oder subtrahiert weden
  * 'p + n' bedeutet die Adresse des n-ten Objects von 'p' aus gesehen
 
+
 -----------------------------------------------------
 # Zeiger und Arrays (11)
-
-* Demo: calloc_demo.c
 
 ### Adress Arithmetik (3)
 #### Naive Implementierung von malloc/free (2)
@@ -1469,7 +1516,7 @@ char *alloc(int n) /* return pointer to n characters */
   if (allocbuf + ALLOCSIZE - allocp >= n) {
     /* it fits */
     allocp += n;
-  return allocp - n; /* old p */
+    return allocp - n; /* old p */
   }
   else  /* not enough room */
     return 0;
