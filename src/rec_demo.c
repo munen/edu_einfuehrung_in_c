@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-int rec(int n) {
-  if(n == 10)
+void countdown(int n) {
+  if(n <= 0)
     return;
-  printf("Aufruf: %d\n", n);
-  rec(n+1);
-
+  printf("%d\n", n);
+  countdown(n-1);
 }
+
 int main(void) {
-  rec(0);
+  countdown(10);
 }
