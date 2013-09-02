@@ -1,12 +1,26 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int my_strlen(char *s) {
-  char *p = s;
-  while(*p != '\0')
-    p++;
-  return p - s;
-}
 
 int main(void) {
-  printf("Laenge von s: %d\n", my_strlen("asdf"));
+  int *x;
+  x = (int *)calloc(10, sizeof(int));
+
+
+  int y[10];
+
+
+  y[0] = 1;
+  y[1] = 2;
+
+
+  x[0] = 1;
+  x[1] = 2;
+
+
+  x++;
+
+  0x131;
+
+
 }

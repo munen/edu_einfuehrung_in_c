@@ -4,7 +4,7 @@
 char push(char c) {
   if(stack.size == STACKSIZE)
     return 0;
-  return stack.data[stack.size++] = c;
+ return stack.data[stack.size++] = c;
 }
 
 char pop() {

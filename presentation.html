@@ -108,7 +108,7 @@ verschiedener Algorithmen relativ zur schnellsten Sprache(hier C) ist
 # Hallo Welt
 
 <pre class="syntax c">
-#include &lt;stdio.h&gt;
+#include <stdio.h>
 
 int main() {
   printf("Hallo HSZ-T\n");
@@ -1582,6 +1582,25 @@ char *pmessage = "now is the time"; /* a pointer */
 
 ![](images/pointer_2.jpg)
 
+
+-----------------------------------------------------
+# Wer erkennt worum es sich handelt?
+![](images/ariane5.jpeg)
+
+-----------------------------------------------------
+# Ariane 5 Erstflug
+
+ * 04.06.1996 Erstflug Ariane 5
+ * 10 Jahre Entwicklung
+ * Kosten: 7 Mrd. USD
+   * Wert Rakete selbst: 0.5 Mrd. USD
+ * 37s nach Lift-Off Verlust der Kontrolle über Rakete
+ * Grund: Limite der Ariane 4 (alte Software) wurden überschritten
+  * Buffer Overflow Exception
+  * Last Resort: Kontrollierte Explosion
+ * Ergebnis: Programm funktionierte wie gewünscht, Projekt dennoch
+ fehlgeschlagen
+
 -----------------------------------------------------
 # Strukturen (1)
 
@@ -1755,6 +1774,14 @@ int correct_parantheses(char *parantheses) {
 
 
 -----------------------------------------------------
+# Umgekehrte Polnische Notation (UPN) 5
+## Coding Challenge!
+
+## Rechner mit Grundrechenfunktionen
+
+
+
+-----------------------------------------------------
 # Neuer Datentyp: Lineare Listen
 
 ## Einfache verkettete Liste
@@ -1769,15 +1796,16 @@ int correct_parantheses(char *parantheses) {
 -----------------------------------------------------
 # Verkettete Listen vs. Arrays
 * Unterschiedliche Performanz für unterschiedliche Workloads
-  * Listen wachsen organisch
-  * Arrays haben fixe Grösse
-  * Listen sortieren bedeutet nur Zeiger umbiegen
-   * Listen können an jeder Stelle günstig erweitert werden
-  * Array sortieren bedeutet im Zweifel mehr Aufwand
-  * Listen tragen Nutzlasten unterschiedlicher Grösse
-  * Listen haben Zugriffszeit O(n)
-  * Arrays haben _sehr_ schnelle Zugriffszeiten O(1)
-  * Arrays sind auf den ersten Blick einfacher zu implementieren
+* Arrays haben fixe Grösse
+    * Listen wachsen organisch
+* Array sortieren bedeutet im Zweifel viel Aufwand
+    * Listen sortieren bedeutet nur Zeiger umbiegen
+    * Listen können an jeder Stelle günstig erweitert werden
+* Arrays tragen Nutzlasten eines Datentypes
+    * Listen tragen Nutzlasten unterschiedlicher Grösse
+* Arrays haben _sehr_ schnelle Zugriffszeiten O(1)
+    * Listen haben Zugriffszeit O(n)
+* Arrays sind auf den ersten Blick einfacher zu implementieren
 
 -----------------------------------------------------
 # Java ArrayList vs. Vector vs. LinkedList
@@ -1804,7 +1832,7 @@ struct linked_list {
 typedef struct linked_list item;
 </pre>
 
-&nbsp;<br/>
+<br/>
 
 * Anders als bei Stack mit Arrays wird nur ein Item gespeichert
 * Da Gesamtgrösse zur Compilierzeit unbekannt muss Speicher zur Laufzeit alloziert werden
@@ -1836,18 +1864,14 @@ free(cur)
 
 
 &nbsp;<br/>
-## Demo linked_list.c
+
+-----------------------------------------------------
+# Demo
+
+* linked_list.c
 
 -----------------------------------------------------
 # Coding Challenge: Stack mit linearer Listen!
-
------------------------------------------------------
-# Umgekehrte Polnische Notation (UPN) 5
-## Coding Challenge!
-
-## Rechner mit Grundrechenfunktionen
-
-
 
 
 -----------------------------------------------------

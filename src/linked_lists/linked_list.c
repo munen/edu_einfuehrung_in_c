@@ -8,22 +8,21 @@ struct linked_list {
 
 typedef struct linked_list item;
 
-
 int main(void) {
-  item *head, *cur, *tmp;
+  item *tail, *cur, *tmp;
 
-  head = NULL;
+  tail = NULL;
   int i;
 
   for(i = 0; i<=10; i++) {
     cur = (item *)malloc(sizeof(item));
 
     cur->data = i;
-    cur->next = head;
-    head = cur;
+    cur->next = tail;
+    tail = cur;
   }
 
-  cur = head;
+  cur = tail;
   while(cur) {
     printf("%d\n", cur->data);
     tmp = cur;
